@@ -1,0 +1,36 @@
+{
+  "name": "plover-api",
+  "version": "1.0.0",
+  "description": "this is an api from our kodemia project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FreddyCastuera/plover-api.git"
+  },
+  "keywords": [
+    "kodemia",
+    "kodawars",
+    "api",
+    "plover"
+  ],
+  "author": "@karenascencio @HectorAlrz @freddyCastuera",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FreddyCastuera/plover-api/issues"
+  },
+  "homepage": "https://github.com/FreddyCastuera/plover-api#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
