@@ -12,7 +12,13 @@ const paymentsSchema = new mongoose.Schema({
     },
     receipt: {
         type: Buffer,
-    }
+    },
+    idPatient:{
+        type:mongoose.Types.ObjectId
+    },
+    idDentist:{
+        type:mongoose.Types.ObjectId
+    },
 }, { timestamps: true})
 
 const model = mongoose.model('payments', paymentsSchema);

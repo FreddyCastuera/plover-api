@@ -34,13 +34,23 @@ router.get('/:id', async (request, response)=> {
     try{
         const {id} = request.params;
         const paymentIdFound = await Payments.getPaymentById(id)
-        response.json({
-            success: true,
-            messaje: `Payment with ID: { ${id} } found`,
-            data:{
-                payment: paymentIdFound
-            }
-        })
+        if(paymentIdFound) {
+            response.json({
+                success: true,
+                messaje: `Payment with ID: { ${id} } found`,
+                data:{
+                    payment: paymentIdFound
+                }
+            })
+        }else {
+            response.json({
+                success: false,
+                messaje: `Payment ID: { ${id} } doesn't exist`,
+                data:{
+                    payment: paymentIdFound
+                }
+            })
+        }
     }
     catch(error) {
         response.status(400)
@@ -51,6 +61,12 @@ router.get('/:id', async (request, response)=> {
         })
     }
 });
+
+// .: GET payments of each patient
+router.get('/patient/:id', (request, response)=>{
+    const {id, idPatient} = request.params
+
+})
 
 // .: POST create a payment
 router.post('/', async (request, response)=> {
@@ -97,6 +113,38 @@ router.patch('/:id', async (request, response)=> {
             success: false,
             error: error.message,
             message: "Updating payment went wronw... try again",
+        })
+    }
+})
+
+// .: DELETE payment by id
+router.delete('/:id', async (request, response)=>{ 
+    try{
+        const {id} = request.params;
+        let deletePaymentById = await Payments.deletePayment(id)
+        
+        if(deletePaymentById) {
+            response.json({
+                success: true,
+                messaje: `Payment ID: { ${id} } has been deleted`,
+                data:{
+                    payment: deletePaymentById
+                }
+            })
+        }else {
+            response.json({
+                success: false,
+                messaje: `Payment ID: { ${id} } doesn't exist`,
+            })
+        }
+        
+    }
+    catch(error) {
+        response.status(400)
+        response.json({
+            success: false,
+            error: error.message,
+            message: "Payment ID provided does not exist, try again with a valid id..."
         })
     }
 })
