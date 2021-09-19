@@ -9,7 +9,8 @@ const appointmentsSchema = new mongoose.Schema({
         type: String,
     },
     date: {
-        type: Date
+        type: Date,
+        default:new Date()
     }
 },{ timestamps: true })
 
