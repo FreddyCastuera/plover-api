@@ -2,7 +2,7 @@ const express = require('express');
 const Payments = require('../usecases/payments');
 const router = express.Router()
 
-
+// prueba head
 router.post('/', async (request, response)=> {
     console.log(request.body)
     try{
