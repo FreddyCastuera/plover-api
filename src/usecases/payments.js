@@ -10,12 +10,17 @@ async function getPaymentById(id){
 }
 // .: create a new payment
 async function createPayment(payment){
-    const {total, date, receipt} = payment
+    //const {total, date, receipt} = payment
     return Payments.create({...payment})
+}
+// .: patch a payment
+async function updatePayment(id, update){
+    return Payments.findByIdAndUpdate(id, update, {new: true})
 }
 
 module.exports = {
     getAllPayments: getAllPayments,
     createPayment: createPayment,
     getPaymentById: getPaymentById,
+    updatePayment: updatePayment,
 }

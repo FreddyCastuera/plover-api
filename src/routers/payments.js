@@ -36,7 +36,7 @@ router.get('/:id', async (request, response)=> {
         const paymentIdFound = await Payments.getPaymentById(id)
         response.json({
             success: true,
-            messaje: `Payment with ${id} found`,
+            messaje: `Payment with ID: { ${id} } found`,
             data:{
                 payment: paymentIdFound
             }
@@ -47,7 +47,7 @@ router.get('/:id', async (request, response)=> {
         response.json({
             success: false,
             error: error.message,
-            message: "id provided does not exist, try again with a valid id..."
+            message: "Payment ID provided does not exist, try again with a valid id..."
         })
     }
 });
@@ -76,5 +76,29 @@ router.post('/', async (request, response)=> {
         })
     }
 });
+
+// .: PATCH payment by id
+router.patch('/:id', async (request, response)=> {
+    try{ 
+        const {id} = request.params;
+        const  newPaymentData = request.body
+        const paymentUpdated = await Payments.updatePayment(id, newPaymentData)
+        response.json({
+            success: true,
+            message: "Payment is updated",
+            data: {
+                payment: paymentUpdated
+            }
+        })
+    }
+    catch(error) {
+        response.status(400)
+        response.json({
+            success: false,
+            error: error.message,
+            message: "Updating payment went wronw... try again",
+        })
+    }
+})
 
 module.exports = router
