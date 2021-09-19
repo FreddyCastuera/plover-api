@@ -14,6 +14,7 @@ const appointmentExample = {
 
 async function createAppointment(appointment){
     let newAppointment = await Appointments.create(appointment)
+    console.log(newAppointment)
 }
 createAppointment(appointmentExample);
 
