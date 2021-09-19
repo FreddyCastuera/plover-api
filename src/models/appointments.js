@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+//quiero hacer cambios
 const appointmentsSchema = new mongoose.Schema({
     procedures: [{name:String,price:Number,status:Boolean}],
     annotations: {
