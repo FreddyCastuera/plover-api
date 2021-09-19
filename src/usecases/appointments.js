@@ -1,19 +1,36 @@
 const Appointments = require('../models/appointments')
-const dbConnect = require('../lib/db')
 
-dbConnect().then(()=>{
-    console.log('database connected')
-})
 
-const appointmentExample = {
-    procedures: [{name:"limpieza dental",price:2500,status:false}],
-    annotations:"se realizara una limpieza dental en el paciente",
-    recommendations: "lavarse la boca bien chido",
-    date: new Date()
+async function createAppointment(newAppointment){
+    let appointment = await Appointments.create(newAppointment)
+    console.log(appointment)
+    return appointment
+}
+async function getAppointments(){
+    const appointments = await Appointments.find({})
+    console.log(appointments)
+    return appointments
+}
+async function getAppointmentById(id){
+    const appointment = await Appointments.findById(id)
+    console.log(appointment)
+    return appointment
+}
+async function updateAppointmentById(id,updatedAppointment){
+    const appointment=  await Appointments.findByIdAndUpdate(id,updatedAppointment,{new:true})
+    console.log(appointment)
+    return appointment
+}
+async function deleteAppointment(id){
+    const appointment = await Appointments.findByIdAndRemove(id)
+    console.log(appointment)
+    return appointment
 }
 
-async function createAppointment(appointment){
-    let newAppointment = await Appointments.create(appointment)
+module.exports = {
+    createAppointment,
+    getAppointments,
+    getAppointmentById,
+    updateAppointmentById,
+    deleteAppointment
 }
-createAppointment(appointmentExample);
-
