@@ -63,7 +63,7 @@ router.get('/:id', async (request, response)=> {
 });
 
 // .: GET payments of each patient
-router.get('/patient/:id', (request, response)=>{
+router.get('/patients/:id', (request, response)=>{
     const {id, idPatient} = request.params
 
 })
