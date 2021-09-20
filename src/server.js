@@ -1,8 +1,14 @@
-// .: Server definition
-// .: Middlewares
-// .: Routers
+const express = require('express');
+const server = express();
+const paymentRouter = require('./routers/payments')
+const appointmentsRouter = require('./routers/appointments')
+const cors = require('cors')
+server.use(express.json());
+server.use(express.urlencoded());
+server.use(cors({
+    origin:'*'
+}))
 
-// .: Enpoints => GET /koders
-// .: 1. The model must exist
-// .: 2. Create the necessary  -> use case <-
-// .: 3. Create the endpoint =>
+server.use('/appointments',appointmentsRouter);
+server.use('/payments', paymentRouter)
+module.exports = server
