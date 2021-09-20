@@ -21,7 +21,6 @@ async function createPayment(payment){
 async function updatePayment(id, update){
     return Payments.findByIdAndUpdate(id, update, {new: true})
 }
-
 // .: delete payment
 async function deletePayment(id){
     return Payments.findByIdAndDelete(id)
