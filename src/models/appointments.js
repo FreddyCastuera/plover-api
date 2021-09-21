@@ -1,6 +1,12 @@
 const mongoose = require('mongoose')
 //quiero hacer cambios aqui
 const appointmentsSchema = new mongoose.Schema({
+    idPatient:{
+        type:mongoose.Types.ObjectId
+    },
+    idDentist:{
+        type:mongoose.Types.ObjectId
+    },
     procedures: [{name:String,price:Number,status:Boolean}],
     annotations: {
         type: String
@@ -10,7 +16,7 @@ const appointmentsSchema = new mongoose.Schema({
     },
     date: {
         type: Date,
-        default:new Date()
+        default:Date.now
     }
 },{ timestamps: true })
 
