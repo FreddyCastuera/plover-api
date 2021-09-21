@@ -1,5 +1,5 @@
 const jwt = require('../lib/jwt')
-
+//middleware de autenticacion
 function auth(request, response, next){
     try{
         const {authorization: token} = request.headers
