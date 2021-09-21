@@ -17,7 +17,7 @@ async function getDentistByPatient(id){
 
 // .: create dentist
 async function createDentist(newDentist){
-    return Dentist.create({...newDentist})
+    return Dentist.create(newDentist)
 }
 
 // .: patch dentist
