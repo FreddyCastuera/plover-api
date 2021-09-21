@@ -4,15 +4,35 @@ const Appointments = require('../usecases/appointments')
 
 //rutas de appointments
 router.get('/', async (request,response)=>{
+    const {idPatient,idDentist} = request.query;
+    console.log(idPatient)
     try{
-        const appointments = await Appointments.getAppointments()
-        response.json({
-            success:true,
-            message:"All Appointments fetched",
-            data:{
-                appointments
-            }
-        })
+        let appointments
+        if(idPatient){
+            appointments = await Appointments.getAppointmentByPatient(idPatient)
+        }
+        else if(idDentist){
+            appointments = await Appointments.getAppointmentByDentist(idDentist)
+        }
+        else{
+            appointments = await Appointments.getAppointments()
+        }
+        if(appointments.length){
+            console.log(appointments)
+            response.json({
+                success:true,
+                message:"All Appointments fetched",
+                data:{
+                    appointments
+                }
+            })
+        }
+        else{
+            response.json({
+                success:false,
+                message:"The appointments you are looking for does not exist"
+            })
+        }
     }
     catch(error){
         response.status(400)
@@ -28,13 +48,21 @@ router.get('/:id',async (request,response)=>{
     try{
         const {id} = request.params;
         const appointment = await Appointments.getAppointmentById(id);
-        response.json({
-            success:true,
-            message:"Appointment fetched successfully",
-            data:{
-                appointment
-            }
-        })
+        if(appointment){
+            response.json({
+                success:true,
+                message:"Appointment fetched successfully",
+                data:{
+                    appointment
+                }
+            })
+        }
+        else{
+            response.json({
+                success:false,
+                message:"We can not find a appointment with that id",
+            })
+        }
     }
     catch(error){
         response.status(400)
@@ -47,6 +75,7 @@ router.get('/:id',async (request,response)=>{
     }
 
 })
+
 router.post('/', async (request,response)=>{
     try{
         const appointmentData = request.body;
@@ -75,13 +104,21 @@ router.patch('/:id',async (request,response)=>{
         const {id} = request.params
         const appointmentData = request.body
         const updatedAppointment = await Appointments.updateAppointmentById(id,appointmentData)
-        response.json({
-            success:true,
-            message:"Appointment updated succesfully",
-            data:{
-                updatedAppointment
-            }
-        })
+        if(updatedAppointment){
+            response.json({
+                success:true,
+                message:"Appointment updated succesfully",
+                data:{
+                    updatedAppointment
+                }
+            })
+        }
+        else{
+            response.json({
+                success:false,
+                message:"The appointment you are trying to update does not exist",
+            })
+        }
     }
     catch(error){
         response.status(400)
@@ -97,14 +134,23 @@ router.patch('/:id',async (request,response)=>{
 router.delete('/:id',async (request,response)=>{
     try{
         const {id} = request.params
-        const deletedAppointment = await Appointments.deleteAppointment(id)
-        response.json({
-            success:true,
-            message:"Appointment deleted succesfully",
-            data:{
-                deletedAppointment
-            }
-        })
+        const deletedAppointment = await Appointments.deleteAppointmentById(id)
+        if(deletedAppointment){
+            response.json({
+                success:true,
+                message:"Appointment deleted succesfully",
+                data:{
+                    deletedAppointment
+                }
+            })
+        }
+        else{
+            response.json({
+                success:false,
+                message:"The appointment you are trying to delete does not exist",
+            })
+
+        }
     }
     catch(error){
         response.status(400)
