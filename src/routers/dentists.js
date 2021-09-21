@@ -124,6 +124,7 @@ router.patch('/:id', async (request, response)=> {
     }
 })
 
+
 // .: Delete Dentist
 
 module.exports  = router

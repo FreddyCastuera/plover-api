@@ -1,9 +1,10 @@
-const patients = require('../models/patient')
+const patients = require('../models/patients')
 const bcrypt = require('../lib/bcrypt')
 
 async function createPatient(newpatient){
     const {email,password} = newpatient
     let emailExist= await patients.findOne({email:email})
+    console.log(emailExist)
     if(emailExist) throw new Error('The email is already on use')
 
     let encryptedPassword = await bcrypt.hash(password);

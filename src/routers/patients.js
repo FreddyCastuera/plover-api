@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const Patients = require('../usecases/patient')
+const Patients = require('../usecases/patients')
 
 //rutas de Patient
 //terminamos las rutas de paciente
