@@ -3,6 +3,7 @@ const router = express.Router()
 const Patients = require('../usecases/patient')
 
 //rutas de Patient
+//terminamos las rutas de paciente
 router.get('/', async (request,response)=>{
     try{
         const patients = await Patients.getPatients()
