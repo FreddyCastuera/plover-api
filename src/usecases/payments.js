@@ -8,7 +8,7 @@ async function getAllPayments(){
 async function getPaymentById(id){
     return Payments.findById(id)
 }
-// .: search payments by patient
+// .: search payments of each patient
 async function getPaymentsByPatient(id){
     return Payments.findById(id)
 }

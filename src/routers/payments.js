@@ -37,7 +37,7 @@ router.get('/:id', async (request, response)=> {
         if(paymentIdFound) {
             response.json({
                 success: true,
-                messaje: `Payment with ID: { ${id} } found`,
+                message: `Payment with ID: { ${id} } found.`,
                 data:{
                     payment: paymentIdFound
                 }
@@ -45,7 +45,7 @@ router.get('/:id', async (request, response)=> {
         }else {
             response.json({
                 success: false,
-                messaje: `Payment ID: { ${id} } doesn't exist`,
+                messaje: `Payment ID: { ${id} } doesn't exist.`,
                 data:{
                     payment: paymentIdFound
                 }
