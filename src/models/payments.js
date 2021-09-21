@@ -8,16 +8,19 @@ const paymentsSchema = new mongoose.Schema({
         required: true,
     },
     date: {
-        type: Date
+        type: Date,
+        required: true,
     },
     receipt: {
         type: Buffer,
     },
     idPatient:{
-        type:mongoose.Types.ObjectId
+        required:true,
+        type:mongoose.Types.ObjectId,
     },
     idDentist:{
-        type:mongoose.Types.ObjectId
+        reuqired: true,
+        type:mongoose.Types.ObjectId,
     },
 }, {timestamps: true})
 

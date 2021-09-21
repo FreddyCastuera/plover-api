@@ -3,7 +3,7 @@ const server = express();
 const paymentRouter = require('./routers/payments')
 const appointmentsRouter = require('./routers/appointments')
 const patientsRouter = require('./routers/patients')
-const dentistRouter = require('./routers/dentist')
+const dentistsRouter = require('./routers/dentists')
 const cors = require('cors')
 server.use(express.json());
 server.use(express.urlencoded());
@@ -14,7 +14,7 @@ server.use(cors({
 server.use('/appointments',appointmentsRouter);
 server.use('/payments', paymentRouter);
 server.use('/patients',patientsRouter);
-server.use('/dentist', dentistRouter);
+server.use('/dentists', dentistsRouter);
 
 module.exports = server
 

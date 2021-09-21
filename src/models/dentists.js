@@ -32,7 +32,8 @@ const dentistSchema = new mongoose.Schema({
     telephoneNumber: {
         type: String,
         minLength: 10,
-        required: true
+        required: true,
+        trim: true
     },
     clinicName: {
         type: String,
@@ -87,7 +88,7 @@ const dentistSchema = new mongoose.Schema({
       profesionalLicense: {
         type: String,
         minLength: 7,
-        maxLength: 9,
+        maxLength: 10,
         required: true,
         trim: true
       },
@@ -102,5 +103,5 @@ const dentistSchema = new mongoose.Schema({
 
 }, {timestamps: true})
 
-const model = mongoose.model('dentist', dentistSchema);
+const model = mongoose.model('dentists', dentistSchema);
 module.exports = model
