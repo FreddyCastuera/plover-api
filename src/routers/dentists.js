@@ -3,14 +3,14 @@ const router = express.Router();
 
 // rama dentista
 // .: Importing usescases
-const Dentist = require('../usecases/dentists');
+const Dentists = require('../usecases/dentists');
 
 // .:-- Methods --:. 
 
 // .: GET all dentist
 router.get('/', async (request, response)=>{
     try {
-        const allDentist = await Dentist.getAllDentist();
+        const allDentist = await Dentists.getAllDentist();
         response.status(200)
         response.json({
             success:true,
@@ -34,7 +34,7 @@ router.get('/', async (request, response)=>{
 router.get('/:id',async (request, response)=>{
     try {
         const {id} = request.params
-        const dentistFound = await Dentist.getDentistById(id)
+        const dentistFound = await Dentists.getDentistById(id)
         if(dentistFound) {
             response.status(200);
             response.json({
@@ -68,9 +68,9 @@ router.post('/', async (request, response)=> {
     try {
         const newDentist = request.body
         const {email} = newDentist
-        const existingEmail = await Dentist.verifyEmail({email: email})
+        const existingEmail = await Dentists.verifyEmail({email: email})
         if(!existingEmail){
-            const dentistCreated = await Dentist.createDentist(newDentist)
+            const dentistCreated = await Dentists.createDentist(newDentist)
             response.status(201)
             response.json({
                 success: true,
@@ -102,7 +102,7 @@ router.patch('/:id', async (request, response)=> {
     try {
         const {id} = request.params;
         const newDentistData = request.body;
-        const dentistUpdated = await Dentist.updateDentist(id, newDentistData);
+        const dentistUpdated = await Dentists.updateDentist(id, newDentistData);
         response.status(200)
         response.json({
             success: true,
