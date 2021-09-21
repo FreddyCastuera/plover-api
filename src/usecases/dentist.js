@@ -15,9 +15,14 @@ async function getDentistByPatient(id){
     return Dentist.findById(id)
 }
 
-// .: create dentist
+// .: create new dentist
 async function createDentist(newDentist){
-    return Dentist.create({...newDentist})
+    return Dentist.create(newDentist)
+}
+
+// .: Verifying existing dentist email for registration
+async function verifyEmail(email){
+    return Dentist.findOne(email)
 }
 
 // .: patch dentist
@@ -32,9 +37,10 @@ async function deleteDentist(id){
 
 module.exports = {
     getAllDentist: getAllDentist,
-    createPayment: createDentist,
+    createDentist: createDentist,
     getDentistById: getDentistById,
     getDentistByPatient: getDentistByPatient,
     updateDentist: updateDentist,
     deleteDentist: deleteDentist,
+    verifyEmail: verifyEmail,
 }
