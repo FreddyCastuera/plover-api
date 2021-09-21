@@ -57,8 +57,8 @@ router.get('/:id',async (request, response)=>{
         response.status(400)
         response.json({
             success: false,
+            message: `Dentist with { ${id} } doesn't exist in the database.`,
             error: error.message,
-            message: "Something went wrong, try again..."
         })
     }
 })
@@ -67,10 +67,8 @@ router.get('/:id',async (request, response)=>{
 router.post('/', async (request, response)=> {
     try {
         const newDentist = request.body
-        const {email} = newDentist
-        const existingEmail = await Dentists.verifyEmail({email: email})
-        if(!existingEmail){
-            const dentistCreated = await Dentists.createDentist(newDentist)
+        const dentistCreated = await Dentists.createDentist(newDentist)
+        if(dentistCreated){
             response.status(201)
             response.json({
                 success: true,
@@ -78,14 +76,13 @@ router.post('/', async (request, response)=> {
                 data: {
                     dentist: dentistCreated
                 }
-            })
-        } else{
-            response.status(400)
+            });
+        } else {
             response.json({
                 success: false,
-                message:"email already exist"
+                messaje: 'email already in use, recover password or use ana nother email',
             })
-        }
+    }
     }
     catch(error) {
         response.status(400)

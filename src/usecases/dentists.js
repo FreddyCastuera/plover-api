@@ -1,4 +1,5 @@
 const Dentists = require('../models/dentists')
+const Bcrypt = require('../lib/bcrypt')
 
 // .: search all the Dentist in the DB
 async function getAllDentist(){
@@ -17,13 +18,23 @@ async function getDentistByPatient(id){
 
 // .: create new dentist
 async function createDentist(newDentist){
-    return Dentists.create(newDentist)
+    try{
+        const {email, password} = newDentist
+        let emailExist = await Dentists.findOne({email: email})
+        if(emailExist){
+            throw new Error('email already in use, recover password or use ana nother email');
+        } else {
+            let encryptedPassword= await Bcrypt.hash(password);
+            return Dentist.create({...newDentist, password: encryptedPassword})
+        }
+    }
+    catch(error){console.log(error.message)}
 }
 
 // .: Verifying existing dentist email for registration
-async function verifyEmail(email){
+/*async function verifyEmail(email){
     return Dentists.findOne(email)
-}
+}*/
 
 // .: patch dentist
 async function updateDentist(id, newDentistData){
@@ -42,5 +53,4 @@ module.exports = {
     getDentistByPatient: getDentistByPatient,
     updateDentist: updateDentist,
     deleteDentist: deleteDentist,
-    verifyEmail: verifyEmail,
 }
