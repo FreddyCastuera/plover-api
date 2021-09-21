@@ -5,7 +5,6 @@ const Appointments = require('../usecases/appointments')
 //rutas de appointments
 router.get('/', async (request,response)=>{
     const {idPatient,idDentist} = request.query;
-    console.log(idPatient)
     try{
         let appointments
         if(idPatient){
@@ -18,7 +17,7 @@ router.get('/', async (request,response)=>{
             appointments = await Appointments.getAppointments()
         }
         if(appointments.length){
-            console.log(appointments)
+            response.status(200)
             response.json({
                 success:true,
                 message:"All Appointments fetched",
@@ -28,9 +27,10 @@ router.get('/', async (request,response)=>{
             })
         }
         else{
+            response.status(200)
             response.json({
-                success:false,
-                message:"The appointments you are looking for does not exist"
+                success:true,
+                message:"There are no appointments in the database"
             })
         }
     }
@@ -49,6 +49,7 @@ router.get('/:id',async (request,response)=>{
         const {id} = request.params;
         const appointment = await Appointments.getAppointmentById(id);
         if(appointment){
+            response.status(200)
             response.json({
                 success:true,
                 message:"Appointment fetched successfully",
@@ -58,8 +59,9 @@ router.get('/:id',async (request,response)=>{
             })
         }
         else{
+            response.status(200)
             response.json({
-                success:false,
+                success:true,
                 message:"We can not find a appointment with that id",
             })
         }
@@ -78,8 +80,12 @@ router.get('/:id',async (request,response)=>{
 
 router.post('/', async (request,response)=>{
     try{
-        const appointmentData = request.body;
+        const {body:appointmentData} = request;
+        console.log("esto es desde las rutas")
+        console.log(appointmentData)
         const newAppointment = await Appointments.createAppointment(appointmentData)
+        //codigo de respuesta cuando se crea exitosamente un recurso
+        response.status(201)
         response.json({
             success:true,
             message:"Appointment created succesfully",
@@ -102,9 +108,10 @@ router.post('/', async (request,response)=>{
 router.patch('/:id',async (request,response)=>{
     try{
         const {id} = request.params
-        const appointmentData = request.body
+        const {body:appointmentData} = request
         const updatedAppointment = await Appointments.updateAppointmentById(id,appointmentData)
         if(updatedAppointment){
+            response.status(201)
             response.json({
                 success:true,
                 message:"Appointment updated succesfully",
@@ -114,8 +121,10 @@ router.patch('/:id',async (request,response)=>{
             })
         }
         else{
+            //sin contenido, la solicitud no pudo encontrar el recurso, por lo tanto no devuelve nada la peticion
+            response.status(200)
             response.json({
-                success:false,
+                success:true,
                 message:"The appointment you are trying to update does not exist",
             })
         }
@@ -136,6 +145,7 @@ router.delete('/:id',async (request,response)=>{
         const {id} = request.params
         const deletedAppointment = await Appointments.deleteAppointmentById(id)
         if(deletedAppointment){
+            response.status(200)
             response.json({
                 success:true,
                 message:"Appointment deleted succesfully",
@@ -145,8 +155,9 @@ router.delete('/:id',async (request,response)=>{
             })
         }
         else{
+            response.status(200)
             response.json({
-                success:false,
+                success:true,
                 message:"The appointment you are trying to delete does not exist",
             })
 

@@ -3,6 +3,7 @@ const Appointments = require('../models/appointments')
 
 async function createAppointment(newAppointment){
     let appointment = await Appointments.create(newAppointment)
+    console.log("esto es desde los usecases")
     console.log(appointment)
     return appointment
 }

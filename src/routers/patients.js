@@ -6,14 +6,28 @@ const Patients = require('../usecases/patient')
 router.get('/', async (request,response)=>{
     try{
         const patient = await Patients.getPatients()
-        console.log(patient)
-        response.json({
-            success:true,
-            message:"All Patients fetched",
-            data:{
-                patient
-            }
-        })
+        if(patient){
+            response.status(200)
+            response.json({
+                success:true,
+                message:"All Patients fetched",
+                data:{
+                    patient
+                }
+            })
+        }
+        else{
+            response.status(204)
+            response.json({
+                success:true,
+                message:"All Patients fetched",
+                data:{
+                    patient
+                }
+            })
+
+        }
+
     }
     catch(error){
         response.status(400)
