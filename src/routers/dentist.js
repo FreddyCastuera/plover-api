@@ -34,9 +34,9 @@ router.get('/', async (request, response)=>{
 router.get('/:id',async (request, response)=>{
     try {
         const {id} = request.params
-        const dentistFound = await Dentist.getDentistById
+        const dentistFound = await Dentist.getDentistById(id)
         if(dentistFound) {
-            response.json(200);
+            response.status(200);
             response.json({
                 success: true,
                 message: `Dentist with { ${id} } found.`,
@@ -64,13 +64,14 @@ router.get('/:id',async (request, response)=>{
 })
 
 // .: POST dentist
-router.post('/dentist', async (request, response)=> {
-    const newDentist = request.body
-    const dentistCreated = await Dentist.createDentist(newDentist)
+router.post('/', async (request, response)=> {
     try {
+        const newDentist = request.body
+        const dentistCreated = await Dentist.createDentist(newDentist)
+        console.log(dentistCreated)
         const {email} = newDentist
-        const existingEmail = await Dentist.findOne(email)
-        if(!existingEmail){
+        const existingEmail = await Dentist.verifyEmail({email: email})
+        if(existingEmail){
             response.status(201)
             response.json({
                 success: true,
@@ -98,11 +99,11 @@ router.post('/dentist', async (request, response)=> {
 })
 
 // .: PATCH dentist
-router.patch('/id:', async (request, response)=> { 
+router.patch('/:id', async (request, response)=> { 
     try {
         const {id} = request.params;
         const newDentistData = request.body;
-        const dentistUpdated = await Dentist.updateDentist(newDentistData);
+        const dentistUpdated = await Dentist.updateDentist(id, newDentistData);
         response.status(200)
         response.json({
             success: true,
@@ -123,5 +124,7 @@ router.patch('/id:', async (request, response)=> {
         })
     }
 })
+
+// .: Delete Dentist
 
 module.exports  = router
