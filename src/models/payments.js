@@ -19,7 +19,7 @@ const paymentsSchema = new mongoose.Schema({
     idDentist:{
         type:mongoose.Types.ObjectId
     },
-}, { timestamps: true})
+}, {timestamps: true})
 
 const model = mongoose.model('payments', paymentsSchema);
 
