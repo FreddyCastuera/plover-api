@@ -19,6 +19,10 @@ const patientsSchema = new mongoose.Schema({
         lowercase:true,
         match: /.*@.*\..*/
     },
+    password:{
+        type:String,
+        required:true
+    },
     gender:{
         type:String,
         required:true,
