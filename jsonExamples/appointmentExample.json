@@ -1,0 +1,9 @@
+{
+    "idPatient":"6147a54a7e64bdd28dc3d570",
+    "idDentist":"6147a54a7e64bdd28dc3d570",
+    "procedures":[
+        {"name":"   LimpIeza Dental","price":1000,"status":false}
+        ],
+    "recomendations":"lavese la boca 3 veces al dia",
+    "annotations":"el paciente es muy cuidadoso con su higiene bucal"
+}

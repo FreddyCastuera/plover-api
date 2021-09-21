@@ -1,0 +1,84 @@
+{
+    "name":"jorge alfredo ",
+    "lastName":"castuera arroyo",
+    "email":"freddycastuera@mail.com",
+    "gender":"hombre",
+    "age":25,
+    "height":1.80,
+    "weigth":100,
+    "bloodType":"A+",
+    "maritalStatus":"soltero",
+    "address":{
+        "state":"Nayarit",
+        "city":"Rincon de Gauabitos",
+        "neighborhood":"Centro",
+        "street":"avenida sol nuevo esquina con tabachines",
+        "streetNumber":80,
+        "innerNumber":null
+    },
+    "familyPractitioner":{
+        "name":"alfredo",
+        "lastName":"renteria",
+        "email":"afredorenteria@gmail.com",
+        "phoneNumber":"327-27-402-432"
+    },
+    "personInCharge":{
+        "name":"sofia",
+        "lastName":"castuer arroyo",
+        "email":"afredorenteria@gmail.com",
+        "phoneNumber":"327-27-402-432"
+    },
+    "familyBackground":{
+        "father":{
+            "pathologies":["cancer","diabetes"],
+            "description":"el padre fallecio de alcoholismo",
+        },
+        "mother":{
+            "pathologies":["cancer","diabetes"],
+            "description":"el padre fallecio de alcoholismo",
+        },
+        "grandFather":{
+            "pathologies":["cancer","diabetes"],
+            "description":"el padre fallecio de alcoholismo",
+        },
+        "grandMother":{
+            "pathologies":["cancer","diabetes"],
+            "description":"el padre fallecio de alcoholismo",
+        },
+        "partner":{
+            "pathologies":["cancer","diabetes"],
+            "description":"el padre fallecio de alcoholismo",
+        },
+        "brothers":{
+            "pathologies":["cancer","diabetes"],
+            "description":"el padre fallecio de alcoholismo",
+        }
+    },
+    "pathologicalBackground":{
+        "currentDiseases":["gripe"],
+        "previousDiseases":["covid","viruela"],
+        "drugAllergies":["paracetamol"],
+        "currentMedications":["diclofenaco"],
+        "previousOperations":{
+            "response":"no",
+            "description":""
+        },
+        "bloodDonation":"no",
+        "birthControlPills":"no",
+        "observations":""
+    },
+    "nonPathologicalBackground":{
+        "feeding":"buena",
+        "toothBrushingFrequency":3,
+        "vaccines":["covid"],
+        "addictions":["alcohol"],
+        "alcoholConsumption":"1 vez al mes",
+        "cigarConsumption":"nunca he fumado",
+        " recentTattos":"no",
+        "hygieneDescription":"me lavo los dientes todos los dias",
+        "services":["agua","luz","electricidad"],
+        "unusualHabits":"se muerde las uñas",
+        "observations":""
+    }
+
+}

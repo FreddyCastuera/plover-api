@@ -3,16 +3,17 @@ const router = express.Router()
 const Patients = require('../usecases/patient')
 
 //rutas de Patient
+//terminamos las rutas de paciente
 router.get('/', async (request,response)=>{
     try{
-        const patient = await Patients.getPatients()
-        if(patient){
+        const patients = await Patients.getPatients()
+        if(patients){
             response.status(200)
             response.json({
                 success:true,
                 message:"All Patients fetched",
                 data:{
-                    patient
+                    patients
                 }
             })
         }
@@ -22,7 +23,7 @@ router.get('/', async (request,response)=>{
                 success:true,
                 message:"All Patients fetched",
                 data:{
-                    patient
+                    patients
                 }
             })
 
@@ -34,7 +35,7 @@ router.get('/', async (request,response)=>{
         response.json({
             success: false,
             message: 'Error fetching the patients',
-            error: "Error fetching the patients"
+            error: error.message
         })
 
     }
@@ -65,7 +66,7 @@ router.get('/:id',async (request,response)=>{
         response.json({
             success: false,
             message: 'Error fetching the patient',
-            error: "Error fetching the patient"
+            error: error.message
         })
 
     }
@@ -74,12 +75,12 @@ router.get('/:id',async (request,response)=>{
 router.post('/', async (request,response)=>{
     try{
         const patientData = request.body;
-        const newPatient = await Patients.createPatient(patientData)
+        const patient = await Patients.createPatient(patientData)
         response.json({
             success:true,
             message:"Patient created succesfully",
             data:{
-                newPatient
+                patient
             }
         })
     }
@@ -88,7 +89,7 @@ router.post('/', async (request,response)=>{
         response.json({
             success: false,
             message: 'Error creating patient',
-            error: "Error creating patient"
+            error: error.message
         })
 
     }
@@ -98,13 +99,13 @@ router.patch('/:id',async (request,response)=>{
     try{
         const {id} = request.params
         const patientData = request.body
-        const updatedPatient = await Patients.updatePatientById(id,patientData)
-        if(updatedPatient){
+        const patient = await Patients.updatePatientById(id,patientData)
+        if(patient){
             response.json({
                 success:true,
                 message:"Patient updated succesfully",
                 data:{
-                    updatedPatient
+                    patient
                 }
             })
         }
@@ -120,7 +121,7 @@ router.patch('/:id',async (request,response)=>{
         response.json({
             success: false,
             message: 'Error updating patient',
-            error: "Error updating patient"
+            error: error.message
         })
     
     }
@@ -129,13 +130,13 @@ router.patch('/:id',async (request,response)=>{
 router.delete('/:id',async (request,response)=>{
     try{
         const {id} = request.params
-        const deletedPatient = await Patients.deletePatientById(id)
-        if(deletedPatient){
+        const patient = await Patients.deletePatientById(id)
+        if(patient){
             response.json({
                 success:true,
                 message:"Patient deleted succesfully",
                 data:{
-                    deletedPatient
+                    patient
                 }
             })
         }
@@ -151,7 +152,7 @@ router.delete('/:id',async (request,response)=>{
         response.json({
             success: false,
             message: 'Error deleting patient',
-            error: "Error deleting patient"
+            error: error.message
         })
     }
 })
