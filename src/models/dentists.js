@@ -103,5 +103,5 @@ const dentistSchema = new mongoose.Schema({
 
 }, {timestamps: true})
 
-const model = mongoose.model('dentist', dentistSchema);
+const model = mongoose.model('dentists', dentistSchema);
 module.exports = model

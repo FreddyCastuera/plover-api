@@ -3,7 +3,7 @@ const router = express.Router();
 
 // rama dentista
 // .: Importing usescases
-const Dentist = require('../usecases/dentist');
+const Dentist = require('../usecases/dentists');
 
 // .:-- Methods --:. 
 

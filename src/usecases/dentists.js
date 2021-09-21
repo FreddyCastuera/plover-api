@@ -1,38 +1,38 @@
-const Dentist = require('../models/dentist')
+const Dentists = require('../models/dentists')
 
 // .: search all the Dentist in the DB
 async function getAllDentist(){
-    return Dentist.find()
+    return Dentists.find()
 }
 
 // .: search dentist by id
 async function getDentistById(id){
-    return Dentist.findById(id)
+    return Dentists.findById(id)
 }
 
 // .: search patiens of the Dentist
 async function getDentistByPatient(id){
-    return Dentist.findById(id)
+    return Dentists.findById(id)
 }
 
 // .: create new dentist
 async function createDentist(newDentist){
-    return Dentist.create(newDentist)
+    return Dentists.create(newDentist)
 }
 
 // .: Verifying existing dentist email for registration
 async function verifyEmail(email){
-    return Dentist.findOne(email)
+    return Dentists.findOne(email)
 }
 
 // .: patch dentist
 async function updateDentist(id, newDentistData){
-    return Dentist.findByIdAndUpdate(id, newDentistData, {new: true})
+    return Dentists.findByIdAndUpdate(id, newDentistData, {new: true})
 }
 
 // .: delete dentist
 async function deleteDentist(id){
-    return Dentist.findByIdAndDelete(id)
+    return Dentists.findByIdAndDelete(id)
 }
 
 module.exports = {
