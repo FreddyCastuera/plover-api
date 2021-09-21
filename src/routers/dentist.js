@@ -1,4 +1,3 @@
-const { response } = require('express');
 const express = require('express');
 const router = express.Router();
 
@@ -12,7 +11,7 @@ const Dentist = require('../usecases/dentist');
 router.get('/', async (request, response)=>{
     try {
         const allDentist = await Dentist.getAllDentist();
-        response(200)
+        response.status(200)
         response.json({
             success:true,
             message: "Dentist list",

@@ -1,4 +1,4 @@
-const Dentist = require('./models/dentist')
+const Dentist = require('../models/dentist')
 
 // .: search all the Dentist in the DB
 async function getAllDentist(){

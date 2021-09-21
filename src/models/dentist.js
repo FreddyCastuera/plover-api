@@ -1,7 +1,6 @@
-const mongoose = requite('mongoose');
+const mongoose = require('mongoose')
 
 // .: Model Dentist ->
-
 const dentistSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -31,7 +30,7 @@ const dentistSchema = new mongoose.Schema({
         match: /.*@.*\..*/,
     },
     telephoneNumber: {
-        type: Number,
+        type: String,
         minLength: 10,
         required: true
     },
@@ -45,7 +44,7 @@ const dentistSchema = new mongoose.Schema({
     clinicNumber: {
         type: Number,
         minLength: 10,
-        required: true
+        required: true,
     },
     clinicAdress: {
         type: String,
@@ -71,7 +70,7 @@ const dentistSchema = new mongoose.Schema({
         required: true,
         match: /.*@.*\..*/,
       },
-      career: {
+      degree: {
         type: String,
         minLength: 8,
         maxLength: 50,
@@ -97,11 +96,11 @@ const dentistSchema = new mongoose.Schema({
         required: true
       },
       patients: {
-        type:[{ type: mongoose.Schema.Types.ObjectId, ref: 'posts' }],
+        type:[{ type: mongoose.Schema.Types.ObjectId, ref: 'patients' }],
         default:[]
       }
 
-},{timestamps: true})
+}, {timestamps: true})
 
-const model = mongoose.model('dentist', dentistSchema)
+const model = mongoose.model('dentist', dentistSchema);
 module.exports = model
