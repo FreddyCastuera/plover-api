@@ -6,7 +6,7 @@ async function getAllDentist(){
 }
 
 // .: search dentist by id
-async function getPaymentById(id){
+async function getDentistById(id){
     return Dentist.findById(id)
 }
 
@@ -16,13 +16,13 @@ async function getDentistByPatient(id){
 }
 
 // .: create dentist
-async function createPayment(payment){
-    return Dentist.create({...payment})
+async function createDentist(newDentist){
+    return Dentist.create({...newDentist})
 }
 
 // .: patch dentist
-async function updateDentist(id, update){
-    return Dentist.findByIdAndUpdate(id, update, {new: true})
+async function updateDentist(id, newDentistData){
+    return Dentist.findByIdAndUpdate(id, newDentistData, {new: true})
 }
 
 // .: delete dentist
@@ -32,8 +32,8 @@ async function deleteDentist(id){
 
 module.exports = {
     getAllDentist: getAllDentist,
-    createPayment: createPayment,
-    getPaymentById: getPaymentById,
+    createPayment: createDentist,
+    getDentistById: getDentistById,
     getDentistByPatient: getDentistByPatient,
     updateDentist: updateDentist,
     deleteDentist: deleteDentist,
