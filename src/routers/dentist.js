@@ -5,7 +5,7 @@ const router = express.Router();
 // .: Importing usescases
 const Dentist = require('../usecases/dentist');
 
-// .: Methods
+// .:-- Methods --:. 
 
 // .: GET all dentist
 router.get('/', async (request, response)=>{
@@ -67,11 +67,10 @@ router.get('/:id',async (request, response)=>{
 router.post('/', async (request, response)=> {
     try {
         const newDentist = request.body
-        const dentistCreated = await Dentist.createDentist(newDentist)
-        console.log(dentistCreated)
         const {email} = newDentist
         const existingEmail = await Dentist.verifyEmail({email: email})
-        if(existingEmail){
+        if(!existingEmail){
+            const dentistCreated = await Dentist.createDentist(newDentist)
             response.status(201)
             response.json({
                 success: true,
