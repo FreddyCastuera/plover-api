@@ -9,7 +9,7 @@ const paymentsSchema = new mongoose.Schema({
     },
     date: {
         type: Date,
-        required: true,
+        default:Date.now
     },
     receipt: {
         type: Buffer,

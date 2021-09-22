@@ -1,5 +1,5 @@
 const Payments = require('../models/payments')
-//este es un punto de revision
+//este es un punto de revisiongi
 
 // .: search all the payments in the DB
 async function getAllPayments(){
