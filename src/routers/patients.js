@@ -73,9 +73,11 @@ router.get('/:id',async (request,response)=>{
 
 })
 router.post('/', async (request,response)=>{
+    const {idDentist} = request.query
+    console.log(idDentist)
     try{
         const patientData = request.body;
-        const patient = await Patients.createPatient(patientData)
+        const patient = await Patients.createPatient(patientData,idDentist)
         response.json({
             success:true,
             message:"Patient created succesfully",
