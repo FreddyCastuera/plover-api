@@ -19,7 +19,7 @@ const paymentsSchema = new mongoose.Schema({
         type:mongoose.Types.ObjectId,
     },
     idDentist:{
-        reuqired: true,
+        required: true,
         type:mongoose.Types.ObjectId,
     },
 }, {timestamps: true})

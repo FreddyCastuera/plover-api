@@ -8,8 +8,15 @@ const Payments = require('../usecases/payments');
 
 // .: GET all payments
 router.get('/', async (request, response)=> {
+    const {idPatient, idDentist} = request.query
+    const idCases = {
+        idPatient: await Payments.getAllPayments(idPatient),
+        idDentist: await Payments.getAllPayments(idDentist)
+    }
     try {
-        const allPayments = await Payments.getAllPayments(); 
+        //const allPayments = await Payments.getAllPayments();
+        if(idCases.idPatient) return idCases.idPatient
+        if(idCases.identDentist) return idCases.idDentist
         response.status(200)
         response.json({
             success:true,
@@ -65,7 +72,6 @@ router.get('/:id', async (request, response)=> {
 // .: GET payments of each patient
 router.get('/patients/:id', (request, response)=>{
     const {id, idPatient} = request.params
-
 })
 
 // .: POST create a payment

@@ -39,16 +39,16 @@ router.get('/:id',async (request, response)=>{
             response.status(200);
             response.json({
                 success: true,
-                message: `Dentist with { ${id} } found.`,
+                message: `Dentist with the id:{ ${id} }  has been found.`,
                 data: {
                     dentist: dentistFound
                 } 
                 })
         } else {
-            response.status()
+            response.status(204)
             response.json({
                 success: false,
-                message: `Dentist with { ${id} } doesn't exist.`,
+                message: `Dentist with the following id doesn't exist: ${id}`,
             })
 
         }
@@ -80,7 +80,7 @@ router.post('/', async (request, response)=> {
         } else {
             response.json({
                 success: false,
-                messaje: 'email already in use, recover password or use ana nother email',
+                messaje: 'email already in use, recover password or use another email',
             })
     }
     }
@@ -89,7 +89,7 @@ router.post('/', async (request, response)=> {
         response.json({
             success: false,
             error: error.message,
-            message: "Something went wrong, try again...",
+            message: "Something went wrong at creating a new Dentist, try again...",
         })
     }
 })
@@ -98,8 +98,9 @@ router.post('/', async (request, response)=> {
 router.patch('/:id', async (request, response)=> { 
     try {
         const {id} = request.params;
-        const newDentistData = request.body;
+        const newDentistData = request.body; 
         const dentistUpdated = await Dentists.updateDentist(id, newDentistData);
+        if(dentistUpdated){
         response.status(200)
         response.json({
             success: true,
@@ -107,20 +108,58 @@ router.patch('/:id', async (request, response)=> {
             data: {
                 dentist: {
                     dentistUpdated
+                 }
                 }
-            }
-        })
+            })
+        }
+        else{
+            response.json({
+                success: false,
+                message:"The dentist you're trying to update doesn't exist"
+            })
+        }
     }
     catch(error) {
         response.status(400)
         response.json({
             success: false,
             error: error.message,
-            message: "Something went wrong... try again"
+            message: "Something went wrong updating the dentist... try again"
         })
     }
 })
 
 // .: Delete Dentist
+router.delete('/:id',async (request, response)=> {
+    try {
+        const {id} = request.params
+        const findIdDentist = await Dentists.getDentistById(id)
+        if(findIdDentist){
+            const dentistDeleted =  await Dentists.deleteDentist(id)
+            response.status(200)
+            response.json({
+                success: true,
+                message: "Dentist deleted",
+                data: {
+                    dentistDeleted
+                }
+            })
+        } else {
+            response.status(200)
+            response.json({
+                success: false,
+                messaje: "The dentist you're trying to delete doesn't exist.",
+            })
+        }
+    }
+    catch(error){
+        response.status(400)
+        response.json({
+            success: false,
+            message: "Something went wrong at deleting the dentist, try again...",
+            error: error.message
+        })
+    }
+})
 
 module.exports  = router
