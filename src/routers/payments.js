@@ -8,26 +8,46 @@ const Payments = require('../usecases/payments');
 
 // .: GET all payments
 router.get('/', async (request, response)=> {
-    try {
-        const allPayments = await Payments.getAllPayments(); 
-        response.status(200)
-        response.json({
-            success:true,
-            message:"Getting all payments",
-            data:{
-                payment: allPayments
-            }
-        })
+    const {idPatient, idDentist} = request.query
+    try{
+        const {id} = request.params;
+        let payments 
+        if(idPatient){
+           payments = await Payments.getPaymentsByPatient(idPatient) 
+        }
+        else if(idDentist){
+            payments = await Payments.getPaymentsByDentist(idDentist)
+        } else {
+           payments = await Payments.getAllPayments()
+        } 
+        if(payments.length) {
+            response.status(200)
+            response.json({
+                success: true,
+                message: "Payments list",
+                data:{
+                    payment: payments
+                }
+            })
+        }else {
+            response.json({
+                success: false,
+                messaje: "There are not any payments yet",
+                data:{
+                    payment: payments
+                }
+            })
+        }
     }
-    catch(error) {
+    catch(error){
         response.status(400)
         response.json({
             success: false,
             error: error.message,
-            message: "Recovering payments went wrong try again..."
+            message: "Payment ID provided does not exist, try again with a valid id..."
         })
     }
-});
+})
 
 // .: GET payment by ID
 router.get('/:id', async (request, response)=> {
@@ -65,7 +85,6 @@ router.get('/:id', async (request, response)=> {
 // .: GET payments of each patient
 router.get('/patients/:id', (request, response)=>{
     const {id, idPatient} = request.params
-
 })
 
 // .: POST create a payment

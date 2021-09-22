@@ -1,4 +1,5 @@
 const Dentists = require('../models/dentists')
+const Bcrypt = require('../lib/bcrypt')
 
 // .: search all the Dentist in the DB
 async function getAllDentist(){
@@ -17,22 +18,39 @@ async function getDentistByPatient(id){
 
 // .: create new dentist
 async function createDentist(newDentist){
-    return Dentists.create(newDentist)
+    try{
+        const {email, password} = newDentist
+        let emailExist = await Dentists.findOne({email: email})
+        if(emailExist) throw new Error('email already in use, recover password or use ana nother email');
+        
+        let encryptedPassword= await Bcrypt.hash(password);
+        return Dentists.create({...newDentist, password: encryptedPassword});
+    } catch(error){console.log(error.message)}
 }
 
 // .: Verifying existing dentist email for registration
-async function verifyEmail(email){
+/*async function verifyEmail(email){
     return Dentists.findOne(email)
-}
+}*/
 
 // .: patch dentist
 async function updateDentist(id, newDentistData){
-    return Dentists.findByIdAndUpdate(id, newDentistData, {new: true})
+    try{
+        let idExist = Dentists.findById(id)
+        if(!idExist) throw new Error("Dentist doesn't exist");
+        return Dentists.findByIdAndUpdate(id, newDentistData, {new: true})
+    }
+    catch(error){console.log(error.message)}
 }
 
 // .: delete dentist
-async function deleteDentist(id){
-    return Dentists.findByIdAndDelete(id)
+async function deleteDentist(id) {
+    try {
+        let idExist = Dentists.findById(id)
+        if(!idExist) throw new Error("Dentist doesn't exist");
+        return Dentists.findByIdAndDelete(id)
+    }
+    catch(error){console.log(error.message)}
 }
 
 module.exports = {
@@ -42,5 +60,4 @@ module.exports = {
     getDentistByPatient: getDentistByPatient,
     updateDentist: updateDentist,
     deleteDentist: deleteDentist,
-    verifyEmail: verifyEmail,
 }
