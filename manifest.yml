@@ -1,0 +1,5 @@
+applications:
+- name: plover-api
+  memory: 64M
+  buildpack: nodejs_buildpack
+
