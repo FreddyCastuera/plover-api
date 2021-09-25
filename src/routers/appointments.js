@@ -4,18 +4,8 @@ const Appointments = require('../usecases/appointments')
 
 //rutas de appointments
 router.get('/', async (request,response)=>{
-    const {idPatient,idDentist} = request.query;
     try{
-        let appointments
-        if(idPatient){
-            appointments = await Appointments.getAppointmentByPatient(idPatient)
-        }
-        else if(idDentist){
-            appointments = await Appointments.getAppointmentByDentist(idDentist)
-        }
-        else{
-            appointments = await Appointments.getAppointments()
-        }
+        let appointments = await Appointments.getAppointments()
         if(appointments.length){
             response.status(200)
             response.json({

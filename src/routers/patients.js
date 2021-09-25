@@ -70,8 +70,71 @@ router.get('/:id',async (request,response)=>{
         })
 
     }
-
 })
+router.get('/:id/appointments',async (request,response)=>{
+    try{
+        const {id} = request.params;
+        const appointmentsPatient = await Patients.getAppointmentsByPatientsId(id);
+        if(appointmentsPatient){
+            response.json({
+                success:true,
+                message:"Patient appointments fetched successfully",
+                data:{
+                    appointmentsPatient
+                }
+            })
+        }
+        else{
+            response.json({
+                success:true,
+                message:"the patient you are looking for does not exist",
+            })
+
+        }
+    }
+    catch(error){
+        response.status(400)
+        response.json({
+            success: false,
+            message: 'Error fetching the patient',
+            error: error.message
+        })
+
+    }
+})
+router.get('/:id/payments',async (request,response)=>{
+    try{
+        const {id} = request.params;
+        const paymentsPatient = await Patients.getPaymentsByPatientsId(id);
+        if(paymentsPatient){
+            response.json({
+                success:true,
+                message:"Patient payments fetched successfully",
+                data:{
+                    paymentsPatient
+                }
+            })
+        }
+        else{
+            response.json({
+                success:true,
+                message:"the patient you are looking for does not exist",
+            })
+
+        }
+    }
+    catch(error){
+        response.status(400)
+        response.json({
+            success: false,
+            message: 'Error fetching the patient',
+            error: error.message
+        })
+
+    }
+})
+
+
 router.post('/', async (request,response)=>{
     const {idDentist} = request.query
     console.log(idDentist)

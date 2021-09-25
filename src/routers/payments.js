@@ -8,18 +8,8 @@ const Payments = require('../usecases/payments');
 
 // .: GET all payments
 router.get('/', async (request, response)=> {
-    const {idPatient, idDentist} = request.query
     try{
-        const {id} = request.params;
-        let payments 
-        if(idPatient){
-           payments = await Payments.getPaymentsByPatient(idPatient) 
-        }
-        else if(idDentist){
-            payments = await Payments.getPaymentsByDentist(idDentist)
-        } else {
-           payments = await Payments.getAllPayments()
-        } 
+         const payments = await Payments.getAllPayments() 
         if(payments.length) {
             response.status(200)
             response.json({

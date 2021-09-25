@@ -1,5 +1,7 @@
 applications:
 - name: plover-api
-  memory: 64M
+  memory: 64M 
+  stack: cflinuxfs3
   buildpack: nodejs_buildpack
-
+  random-route: true
+  
