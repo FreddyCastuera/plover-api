@@ -9,7 +9,7 @@ const paymentsSchema = new mongoose.Schema({
     },
     date: {
         type: Date,
-        required: true,
+        default:Date.now
     },
     receipt: {
         type: Buffer,
@@ -19,7 +19,7 @@ const paymentsSchema = new mongoose.Schema({
         type:mongoose.Types.ObjectId,
     },
     idDentist:{
-        reuqired: true,
+        required: true,
         type:mongoose.Types.ObjectId,
     },
 }, {timestamps: true})

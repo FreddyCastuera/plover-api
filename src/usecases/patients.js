@@ -1,17 +1,22 @@
-const patients = require('../models/patient')
+const patients = require('../models/patients')
+const dentists = require('../models/dentists')
 const bcrypt = require('../lib/bcrypt')
-
-async function createPatient(newpatient){
+const ObjectId = require('mongoose').Types.ObjectId
+//ahora podemos recibir de un query param el id con dentista y guardar el paciente en el arreglo de pacientes del dentista
+async function createPatient(newpatient,idDentist=null){
     const {email,password} = newpatient
     let emailExist= await patients.findOne({email:email})
+    console.log(emailExist)
     if(emailExist) throw new Error('The email is already on use')
 
     let encryptedPassword = await bcrypt.hash(password);
-
     let patient = await patients.create({...newpatient,password:encryptedPassword})
-    console.log(patient)
+    console.log(patient._id.toString())
+    if(idDentist){
+        await dentists.findByIdAndUpdate(idDentist,{$push:{patients:patient._id}})
+    }
     return patient
-}
+} 
 async function getPatients(){
     const patient = await patients.find({})
     console.log(patients)

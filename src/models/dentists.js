@@ -97,7 +97,7 @@ const dentistSchema = new mongoose.Schema({
         required: true
       },
       patients: {
-        type:[{ type: mongoose.Schema.Types.ObjectId, ref: 'patients' }],
+        type:[{ type: mongoose.Schema.Types.ObjectId}],
         default:[]
       }
 
