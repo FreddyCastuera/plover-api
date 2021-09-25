@@ -97,6 +97,11 @@ router.post('/', async (request, response)=> {
     }
 })
 
+// .: POST login dentist
+router.post('/login', async (request, response)=>{
+
+})
+
 // .: PATCH dentist
 router.patch('/:id', async (request, response)=> { 
     try {
