@@ -1,5 +1,6 @@
 const Dentists = require('../models/dentists')
 const Bcrypt = require('../lib/bcrypt')
+const Sendgrid = require('./sendgrid')
 
 // .: search all the Dentist in the DB
 async function getAllDentist(){
@@ -19,19 +20,16 @@ async function getDentistByPatient(id){
 // .: create new dentist
 async function createDentist(newDentist){
     try{
-        const {email, password} = newDentist
+        const {email, password, name} = newDentist
         let emailExist = await Dentists.findOne({email: email})
         if(emailExist) throw new Error('email already in use, recover password or use ana nother email');
-        
         let encryptedPassword= await Bcrypt.hash(password);
-        return Dentists.create({...newDentist, password: encryptedPassword});
+
+        return await Sendgrid.SendEmail(email, name)
+        //Dentists.create({...newDentist, password: encryptedPassword});
     } catch(error){console.log(error.message)}
 }
 
-// .: Verifying existing dentist email for registration
-/*async function verifyEmail(email){
-    return Dentists.findOne(email)
-}*/
 
 // .: patch dentist
 async function updateDentist(id, newDentistData){
