@@ -29,6 +29,13 @@ const dentistSchema = new mongoose.Schema({
         required: true,
         match: /.*@.*\..*/,
     },
+    emailToken: {
+      type: String,
+    },
+    verified: {
+      type: Boolean,
+      default: false,
+    },
     telephoneNumber: {
         type: String,
         minLength: 10,

@@ -22,14 +22,32 @@ async function createDentist(newDentist){
     try{
         const {email, password, name} = newDentist
         let emailExist = await Dentists.findOne({email: email})
-        if(emailExist) throw new Error('email already in use, recover password or use ana nother email');
-        let encryptedPassword= await Bcrypt.hash(password);
 
-        return await Sendgrid.SendEmail(email, name)
-        //Dentists.create({...newDentist, password: encryptedPassword});
+        if(emailExist) throw new Error(' yawcAW email already in use, recover password or use another email');
+        
+        let encryptedPassword= await Bcrypt.hash(password);
+        let encryptedEmail = await Bcrypt.hash(email);
+        
+        const dentistCreated = await Dentists.create({...newDentist, password: encryptedPassword, emailToken: encryptedEmail});
+        const { id } = dentistCreated
+        
+        //if(!dentistCreated) throw new Error('Somethig went wrong creating the dentist')
+        const emailVerification = await Sendgrid.SendEmail(email, name, encryptedEmail, id);
+        
+        return emailVerification && dentistCreated
+
     } catch(error){console.log(error.message)}
 }
 
+// .: change verify dentist
+async function verifyToken(id, token){
+    try{
+        let idExist = await Dentists.findById(id)
+        let {emailToken, verified} = idExist
+        
+    }
+    catch(error){console.log(error.message)}
+}
 
 // .: patch dentist
 async function updateDentist(id, newDentistData){

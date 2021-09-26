@@ -30,7 +30,7 @@ router.get('/', async (request, response)=>{
 })
 
 // .: Get dentist by id
-router.get('/:id',async (request, response)=>{
+router.get('/:id',async (request, response)=> {
     try {
         const {id} = request.params
         const dentistFound = await Dentists.getDentistById(id)
@@ -63,7 +63,7 @@ router.get('/:id',async (request, response)=>{
 })
 
 // .: POST dentist
-router.post('/', async (request, response)=> {
+router.post('/register', async (request, response)=> {
     try {
         const newDentist = request.body
         const dentistCreated = await Dentists.createDentist(newDentist)
@@ -93,9 +93,23 @@ router.post('/', async (request, response)=> {
     }
 })
 
-// .: POST login dentist
-router.post('/login', async (request, response)=>{
+// .: GET verify dentist
+router.get('/verify/:id/:emailToken', async (request, response)=>{
+    try {
+    const { id, emailToken } = request.params
+    const token = emailToken
+    
+    console.log('id:',id)
+    console.log('emailToken:', emailToken)
 
+    }
+    catch(error){
+        response.status(400)
+        response.json({
+            success: false,
+            error: error.message
+        })
+    }
 })
 
 // .: PATCH dentist
