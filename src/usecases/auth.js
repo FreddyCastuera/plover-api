@@ -24,12 +24,6 @@ async function login(email, password){
     }
 }
 
-async function verify(email, emailToken){
-    
-    
-    jwt.sign({data: 'foobar'}, 'secret', { expiresIn: '1h' });  
-}
-
 module.exports = {
     login
 }

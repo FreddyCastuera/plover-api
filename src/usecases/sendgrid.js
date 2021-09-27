@@ -17,7 +17,7 @@ function SendEmail(email, name, emailToken, id){
             from: ploverEmail,
             subject: "Plover Account Registration",
             text: `Hola ${name}, para confirmar tu cuenta ingresa al siguiente link para empezar a usar tu cuenta
-            http://localhost:8080/verify/${id}/{emailToken}`
+            http://localhost:8080/dentists/verify/${id}/${emailToken}`
         }
         
         const emailSuccess = sgMail.send(msg,(error, result)=>{
