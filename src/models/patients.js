@@ -23,6 +23,9 @@ const patientsSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    userImage:{
+        type:String
+      },
     gender:{
         type:String,
         required:true,

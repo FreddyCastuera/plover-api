@@ -1,8 +1,8 @@
 const nodemailer = require("nodemailer");
 
 const sendEmail = async (email, subject, text) => {
-    const {USER,PASS} = process.env
-    console.log(USER)
+    const {USERNAME,PASS} = process.env
+    console.log(USERNAME)
     console.log(PASS)
     try {
         const transporter = nodemailer.createTransport({
@@ -11,7 +11,7 @@ const sendEmail = async (email, subject, text) => {
             port: 587,
             secure: true,
             auth: {
-                user: 'freddycastuera@gmail.com',
+                user: process.env.PASS,
                 pass: process.env.PASS,
             },
         });
