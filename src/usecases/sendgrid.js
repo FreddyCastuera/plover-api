@@ -3,7 +3,6 @@ const Dentist = require('../models/dentists');
 const Patients = require('../models/patients');
 const jwt = require ('../lib/jwt');
 
-
 const EMAIL_API_ID = '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'
 const ploverEmail = 'plover.software@gmail.com'
 
@@ -33,7 +32,6 @@ function SendEmail(email, name, emailToken, id){
         console.log(error.message)
     }
 }
-
 
 function ChangePasswordEmail(email, id, name){
     try {

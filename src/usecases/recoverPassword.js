@@ -24,19 +24,20 @@ async function resetPassword(newPassword, id) {
         console.log(encryptedNewData)
         
         const findDentist = Dentists.findById(id)
+        const findPatient = Patients.findById(id);
 
         if(findDentist) {
             return findDentist.findOneAndUpdate(id, {password: encryptedNewData}, {new: true})
-        } else {
-            findPatient = Patients.findById(id);
+        } else{
+            const findPatient = Patients.findById(id);
+            console.log('asd',findPatient)
             return findPatient.findOneAndUpdate(id, {password: encryptedNewData}, {new: true});
         }
 
     }
     catch(error){console.log(error.message)}
 }
-
-
+// ! BORRAR CONSOLE LOGS
 module.exports = {
     recoverPassword: recoverPassword,
     resetPassword: resetPassword,

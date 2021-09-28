@@ -80,7 +80,7 @@ router.post('/register', async (request, response) => {
             response.json({
                 success: false,
                 message: 'email already in use, recover password or use another email',
-            })
+            });
         }
     }
     catch (error) {

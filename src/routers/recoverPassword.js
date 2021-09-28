@@ -7,7 +7,7 @@ const router = express.Router();
 // .: Importing uses cases
 const Recovery = require('../usecases/recoverPassword')
 const Dentists = require('../usecases/dentists');
-const Pentists = require('../usecases/patients');
+const Patients = require('../usecases/patients');
 
 router.post('/',async (request, response)=> {
     try{
@@ -55,13 +55,11 @@ router.patch('/reset/:id/', async (request, response)=>{
        response.status(4000)
        response.json({
            success:false,
-           erro: error.message,
+           error: error.message,
            message: 'Something went wrong at reseting password, try again'
        })
    }
     
 })
-
-
 
 module.exports = router
