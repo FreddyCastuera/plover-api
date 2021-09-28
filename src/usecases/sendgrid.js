@@ -35,6 +35,34 @@ function SendEmail(email, name, emailToken, id){
 }
 
 
+function ChangePasswordEmail(email, id, name){
+    try {
+        let token = jwt.sign({email: email, id: id}, 'secret', {expiresIn: '2h'});
+        console.log(token)
+        const msg = {
+            to: 1233,
+            from: ploverEmail,
+            subject: "Plover Recovery password",
+            text: `Hola ${name}, has solicitado cambiar la contraseña, accede al siguiente link para hacerlo
+            en caso de que no lo hayas solicitado, haz caso omiso de este correo
+            http://localhost:8080/recovery/reset/${email}/${token}`
+        }
+        
+        const emailSuccess = sgMail.send(msg,(error, result)=>{
+            if(error){
+                console.log('Email not Sent');
+            } else {
+                console.log('Email Sent Success');
+            }
+        });
+        return emailSuccess
+    }
+    catch(error){
+        console.log(error.message)
+    }
+}
+
 module.exports = {
         SendEmail: SendEmail,
+        ChangePasswordEmail: ChangePasswordEmail,
 }

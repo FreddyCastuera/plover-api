@@ -36,23 +36,21 @@ async function createDentist(newDentist){
         console.log(dentistCreated)
 
         const emailVerification = await Sendgrid.SendEmail(email, name, emailToken, _id);
-        return dentistCreated
+        return dentistCreated 
         
     } catch(error){console.log(error.message)}
 }
 
 // .: change verify dentist
-async function verifyToken(id, token){
+async function verifyToken(id){
     try{
         let idExist = await Dentists.findById(id)
         console.log(id)
-        let {emailToken, email} = idExist
+        let { email} = idExist
         console.log(email)
         const equalToken = await Bcrypt.compare(email, idExist.emailToken)
         console.log('bcrypt:',equalToken)
-        if(!equalToken) throw new Error('Invalid link')
-        //if(token != emailToken  ) throw  new Error('No se pudo verificar la cuenta, vuelve a intentarlo');
-        
+        if(!equalToken) throw new Error('Invalid link')        
         return await Dentists.updateOne({ _id: idExist._id}, {verified: true })
     }
     catch(error){console.log(error.message)}
