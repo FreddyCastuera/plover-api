@@ -29,7 +29,7 @@ async function resetPassword(newPassword, id) {
             return findDentist.findOneAndUpdate(id, {password: encryptedNewData}, {new: true})
         } else {
             findPatient = Patients.findById(id);
-            return await Patients.findOneAndUpdare(id, {password: encryptedNewData}, {new: true});
+            return findPatient.findOneAndUpdate(id, {password: encryptedNewData}, {new: true});
         }
 
     }

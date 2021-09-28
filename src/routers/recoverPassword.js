@@ -32,7 +32,7 @@ router.post('/',async (request, response)=> {
     }
 })
 
-router.patch('/reset/:id', async (request, response)=>{
+router.patch('/reset/:id/', async (request, response)=>{
    try{ 
     const {id} = request.params
     const {password} = request.body
