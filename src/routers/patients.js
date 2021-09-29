@@ -107,6 +107,7 @@ router.get('/:id/payments',async (request,response)=>{
         const {id} = request.params;
         const paymentsPatient = await Patients.getPaymentsByPatientsId(id);
         if(paymentsPatient){
+            response.status(200)
             response.json({
                 success:true,
                 message:"Patient payments fetched successfully",
