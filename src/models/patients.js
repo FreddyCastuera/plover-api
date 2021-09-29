@@ -1,6 +1,11 @@
 const mongoose = require('mongoose')
 //quiero hacer cambios aqui
 const patientsSchema = new mongoose.Schema({
+
+    idDentist:{
+        required:true,
+        type:mongoose.Types.ObjectId,
+    },
     name:{
         type:String,
         required:true,
@@ -23,6 +28,9 @@ const patientsSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    userImage:{
+        type:String
+      },
     gender:{
         type:String,
         required:true,

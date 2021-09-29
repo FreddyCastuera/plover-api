@@ -17,7 +17,10 @@ const dentistSchema = new mongoose.Schema({
         trim: true
         },
     birthDate: {
-        dueDate: Date
+        type: Date
+    },
+    userImage:{
+      type:String
     },
     gender: {
         type: String,

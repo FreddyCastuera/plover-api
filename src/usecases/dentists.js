@@ -1,4 +1,7 @@
 const Dentists = require('../models/dentists')
+const Appointments = require('../models/appointments')
+const Payments = require('../models/payments')
+const Patients = require('../models/patients')
 const Bcrypt = require('../lib/bcrypt')
 const Sendgrid = require('./sendgrid')
 
@@ -15,6 +18,26 @@ async function getDentistById(id){
 // .: search patiens of the Dentist
 async function getDentistByPatient(id){
     return Dentists.findById(id)
+}
+
+async function getDentistByEmail(email){
+    const dentist = await Dentists.find({email:email});
+    return dentist;
+}
+
+async function getAppointmentByDentistId(id){
+    const appointmentsDentist = await Appointments.find({idDentist:id});
+    return appointmentsDentist;
+}
+
+async function getPaymentsByDentistsId(id){
+    const paymentsDentist = await Payments.find({idDentist:id});
+    return paymentsDentist;
+}
+
+async function getPatientsByDentistsId(id){
+    const patientDentist = await Patients.find({idDentist:id});
+    return patientDentist;
 }
 
 // .: create new dentist
