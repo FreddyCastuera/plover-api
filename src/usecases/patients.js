@@ -1,5 +1,7 @@
 const patients = require('../models/patients')
 const dentists = require('../models/dentists')
+const appointments = require('../models/appointments')
+const payments = require('../models/payments')
 const bcrypt = require('../lib/bcrypt')
 const ObjectId = require('mongoose').Types.ObjectId
 //ahora podemos recibir de un query param el id con dentista y guardar el paciente en el arreglo de pacientes del dentista
@@ -27,6 +29,18 @@ async function getPatientById(id){
     console.log(patient)
     return patient
 }
+async function getAppointmentsByPatientsId(id){
+    const appointmentsPatient = await appointments.find({idPatient:id})
+    return appointmentsPatient
+}
+
+async function getPaymentsByPatientsId(id){
+    const paymentsPatient = await payments.find({idPatient:id})
+    return paymentsPatient
+}
+
+
+
 async function updatePatientById(id,updatedpatient){
     const patient=  await patients.findByIdAndUpdate(id,updatedpatient,{new:true})
     console.log(patient)
@@ -43,5 +57,7 @@ module.exports = {
     getPatients,
     getPatientById,
     updatePatientById,
-    deletePatientById
+    deletePatientById,
+    getAppointmentsByPatientsId,
+    getPaymentsByPatientsId
 }

@@ -1,4 +1,6 @@
 const Dentists = require('../models/dentists')
+const Appointments = require('../models/appointments')
+const Payments = require('../models/payments')
 const Bcrypt = require('../lib/bcrypt')
 
 // .: search all the Dentist in the DB
@@ -14,6 +16,21 @@ async function getDentistById(id){
 // .: search patiens of the Dentist
 async function getDentistByPatient(id){
     return Dentists.findById(id)
+}
+
+async function getDentistByEmail(email){
+    const dentist = await Dentists.find({email:email});
+    return dentist;
+}
+
+async function getAppointmentByDentistId(id){
+    const appointmentsDentist = await Appointments.find({idDentist:id});
+    return appointmentsDentist;
+}
+
+async function getPaymentsByDentistsId(id){
+    const paymentsPatient = await Payments.find({idDentist:id});
+    return paymentsPatient;
 }
 
 // .: create new dentist
@@ -60,4 +77,7 @@ module.exports = {
     getDentistByPatient: getDentistByPatient,
     updateDentist: updateDentist,
     deleteDentist: deleteDentist,
+    getAppointmentByDentistId,
+    getPaymentsByDentistsId,
+    getDentistByEmail
 }

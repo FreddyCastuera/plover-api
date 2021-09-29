@@ -63,6 +63,72 @@ router.get('/:id',async (request, response)=>{
     }
 })
 
+router.get('/:id/appointments',async (request, response)=>{
+    try {
+        const {id} = request.params
+        const appointmentsDentist = await Dentists.getAppointmentByDentistId(id)
+        if(appointmentsDentist) {
+            response.status(200);
+            response.json({
+                success: true,
+                message: `Appointments from dentits with id ${id} succesfully fetched.`,
+                data: {
+                    appointmentsDentist
+                } 
+                })
+        } else {
+            response.status(204)
+            response.json({
+                success: false,
+                message: `Dentist with the following id doesn't exist: ${id}`,
+            })
+
+        }
+    }
+    catch(error) {
+        response.status(400)
+        response.json({
+            success: false,
+            message: `Dentist with { ${id} } doesn't exist in the database.`,
+            error: error.message,
+        })
+    }
+})
+
+
+
+router.get('/:id/payments',async (request, response)=>{
+    try {
+        const {id} = request.params
+        const paymentsDentist = await Dentists.getPaymentsByDentistsId(id)
+        if(paymentsDentist) {
+            response.status(200);
+            response.json({
+                success: true,
+                data: {
+                    paymentsDentist
+                } 
+                })
+        } else {
+            response.status(204)
+            response.json({
+                success: false,
+                message: `Dentist with the following id doesn't exist: ${id}`,
+            })
+
+        }
+    }
+    catch(error) {
+        response.status(400)
+        response.json({
+            success: false,
+            message: `Dentist with { ${id} } doesn't exist in the database.`,
+            error: error.message,
+        })
+    }
+})
+
+
 // .: POST dentist
 router.post('/', async (request, response)=> {
     try {
