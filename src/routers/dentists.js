@@ -96,6 +96,39 @@ router.get('/:id/appointments',async (request, response)=>{
 })
 
 
+router.get('/:id/patients',async (request, response)=>{
+    try {
+        const {id} = request.params
+        const patientsByDentist = await Dentists.getPatientsByDentistsId(id)
+        if(patientsByDentist) {
+            response.status(200);
+            response.json({
+                success: true,
+                message: `Patients from dentits with id ${id} succesfully fetched.`,
+                data: {
+                    patientsByDentist
+                } 
+                })
+        } else {
+            response.status(204)
+            response.json({
+                success: false,
+                message: `Dentist with the following id doesn't exist: ${id}`,
+            })
+
+        }
+    }
+    catch(error) {
+        response.status(400)
+        response.json({
+            success: false,
+            message: `Dentist with { ${id} } doesn't exist in the database.`,
+            error: error.message,
+        })
+    }
+})
+
+
 
 router.get('/:id/payments',async (request, response)=>{
     try {

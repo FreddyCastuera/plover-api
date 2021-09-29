@@ -11,7 +11,7 @@
     "address":{
         "state":"Nayarit",
         "city":"Rincon de Gauabitos",
-        "neighborhood":"Centro",
+        "i":"Centro",
         "street":"avenida sol nuevo esquina con tabachines",
         "streetNumber":80,
         "innerNumber":null
