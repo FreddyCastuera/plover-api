@@ -4,26 +4,25 @@ const router = express.Router();
 // rama dentista
 // .: Importing usescases
 const Dentists = require('../usecases/dentists');
-
 // .:-- Methods --:. 
 
 // .: GET all dentist
-router.get('/', async (request, response)=>{
+router.get('/', async (request, response) => {
     try {
         const allDentist = await Dentists.getAllDentist();
         response.status(200)
         response.json({
-            success:true,
+            success: true,
             message: "Dentist list",
             data: {
                 dentist: allDentist
             }
         })
 
-    } catch(error) {
+    } catch (error) {
         response.status(400)
         response.json({
-            success:false,
+            success: false,
             error: error.message,
             message: "Recovering dentist went wrong, try agan..."
         })
@@ -31,19 +30,19 @@ router.get('/', async (request, response)=>{
 })
 
 // .: Get dentist by id
-router.get('/:id',async (request, response)=>{
+router.get('/:id', async (request, response) => {
     try {
-        const {id} = request.params
+        const { id } = request.params
         const dentistFound = await Dentists.getDentistById(id)
-        if(dentistFound) {
+        if (dentistFound) {
             response.status(200);
             response.json({
                 success: true,
                 message: `Dentist with the id:{ ${id} }  has been found.`,
                 data: {
                     dentist: dentistFound
-                } 
-                })
+                }
+            })
         } else {
             response.status(204)
             response.json({
@@ -53,7 +52,7 @@ router.get('/:id',async (request, response)=>{
 
         }
     }
-    catch(error) {
+    catch (error) {
         response.status(400)
         response.json({
             success: false,
@@ -163,15 +162,15 @@ router.get('/:id/payments',async (request, response)=>{
 
 
 // .: POST dentist
-router.post('/', async (request, response)=> {
+router.post('/register', async (request, response) => {
     try {
         const newDentist = request.body
         const dentistCreated = await Dentists.createDentist(newDentist)
-        if(dentistCreated){
+        if (dentistCreated) {
             response.status(201)
             response.json({
                 success: true,
-                message:"Dentist created",
+                message: "Dentist created",
                 data: {
                     dentist: dentistCreated
                 }
@@ -179,11 +178,11 @@ router.post('/', async (request, response)=> {
         } else {
             response.json({
                 success: false,
-                messaje: 'email already in use, recover password or use another email',
-            })
+                message: 'email already in use, recover password or use another email',
+            });
+        }
     }
-    }
-    catch(error) {
+    catch (error) {
         response.status(400)
         response.json({
             success: false,
@@ -193,32 +192,68 @@ router.post('/', async (request, response)=> {
     }
 })
 
-// .: PATCH dentist
-router.patch('/:id', async (request, response)=> { 
-    try {
-        const {id} = request.params;
-        const newDentistData = request.body; 
-        const dentistUpdated = await Dentists.updateDentist(id, newDentistData);
-        if(dentistUpdated){
+// .: GET verify dentist
+router.get('/verify/:id/:emailToken',async (request, response)=> {
+   try{ 
+    const {id, emailToken} = request.params
+    console.log('id:', id)
+    console.log('token:', emailToken)
+    const tokenVerified = await Dentists.verifyToken(id, emailToken)
+    console.log('route token:', tokenVerified);
+
+    if(tokenVerified){
         response.status(200)
         response.json({
             success: true,
-            message: "Dentist updated",
+            message: 'The account have been verified',
             data: {
-                dentist: {
-                    dentistUpdated
-                 }
+                tokenVerified
+            }
+        })
+
+    } else {
+        response.status(400)
+        response.json({
+            success: false,
+            message: 'ROute invalid link'
+        })
+    }
+   }
+   catch(error){
+       response.status(400)
+       response.json({
+           success: false,
+           error: error.message,
+       })
+   }
+});
+
+// .: PATCH dentist
+router.patch('/:id', async (request, response) => {
+    try {
+        const { id } = request.params;
+        const newDentistData = request.body;
+        const dentistUpdated = await Dentists.updateDentist(id, newDentistData);
+        if (dentistUpdated) {
+            response.status(200)
+            response.json({
+                success: true,
+                message: "Dentist updated",
+                data: {
+                    dentist: {
+                        dentistUpdated
+                    }
                 }
             })
         }
-        else{
+        else {
             response.json({
                 success: false,
-                message:"The dentist you're trying to update doesn't exist"
+                message: "The dentist you're trying to update doesn't exist"
             })
         }
     }
-    catch(error) {
+    catch (error) {
         response.status(400)
         response.json({
             success: false,
@@ -230,12 +265,12 @@ router.patch('/:id', async (request, response)=> {
 
 
 // .: Delete Dentist
-router.delete('/:id',async (request, response)=> {
+router.delete('/:id', async (request, response) => {
     try {
-        const {id} = request.params
+        const { id } = request.params
         const findIdDentist = await Dentists.getDentistById(id)
-        if(findIdDentist){
-            const dentistDeleted =  await Dentists.deleteDentist(id)
+        if (findIdDentist) {
+            const dentistDeleted = await Dentists.deleteDentist(id)
             response.status(200)
             response.json({
                 success: true,
@@ -252,7 +287,7 @@ router.delete('/:id',async (request, response)=> {
             })
         }
     }
-    catch(error){
+    catch (error) {
         response.status(400)
         response.json({
             success: false,
@@ -262,4 +297,4 @@ router.delete('/:id',async (request, response)=> {
     }
 })
 
-module.exports  = router
+module.exports = router
