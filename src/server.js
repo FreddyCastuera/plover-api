@@ -13,7 +13,7 @@ server.use(express.json());
 server.use(cors({
     origin:'*'
 }))
-s
+
 server.use('/appointments',appointmentsRouter);
 server.use('/payments', paymentRouter);
 server.use('/patients',patientsRouter);
