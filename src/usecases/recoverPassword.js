@@ -8,10 +8,11 @@ const jwt = require ('../lib/jwt');
 async function recoverPassword(recoveryData) {
     try{
         const {email} = recoveryData
-        console.log(email)
-        const findUser = await Dentists.find({email:email})
+        console.log('w',email)
+        const findUser = await Dentists.findOne({email:email})
         if(!findUser) throw new Error('El correo no existe')
         const {name, id} = findUser
+        console.log(name, id)
         return resetPass = Sendgrid.ChangePasswordEmail(email,id, name)
     }
     catch(error){console.log(error.message)}

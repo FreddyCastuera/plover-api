@@ -52,7 +52,7 @@ router.patch('/reset/:id/', async (request, response)=>{
     });
    }
    catch(error){
-       response.status(4000)
+       response.status(400)
        response.json({
            success:false,
            error: error.message,
