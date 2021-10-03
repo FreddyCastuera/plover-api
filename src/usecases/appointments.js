@@ -1,4 +1,5 @@
 const Appointments = require('../models/appointments')
+const Patients = require('../models/patients') 
 
 
 async function createAppointment(newAppointment){
@@ -13,7 +14,7 @@ async function getAppointments(){
     return appointments
 }
 async function getAppointmentById(id){
-    const appointment = await Appointments.findById(id)
+    const appointment = await Appointments.findById(id).populate({path:'idPatient',select:'name lastName'})
     console.log(appointment)
     return appointment
 }
