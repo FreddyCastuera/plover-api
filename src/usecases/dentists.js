@@ -107,4 +107,8 @@ module.exports = {
     updateDentist: updateDentist,
     deleteDentist: deleteDentist,
     verifyToken: verifyToken,
+    getDentistByEmail: getDentistByEmail,
+    getAppointmentByDentistId:getAppointmentByDentistId,
+    getPaymentsByDentistsId:getPaymentsByDentistsId,
+    getPatientsByDentistsId:getPatientsByDentistsId,
 }
