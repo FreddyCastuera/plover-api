@@ -3,103 +3,103 @@ const mongoose = require('mongoose')
 const patientsSchema = new mongoose.Schema({
 
     idDentist:{
-        required:true,
+        required:false,
         type:mongoose.Types.ObjectId,
     },
     name:{
         type:String,
-        required:true,
+        required:false,
         lowercase:true,
         trim:true,
     },
     lastName:{
         type:String,
-        required:true,
+        required:false,
         lowercase:true,
         trim:true,
     },
     email:{
         type:String,
-        required:true,
+        required:false,
         lowercase:true,
         match: /.*@.*\..*/
     },
     password:{
         type:String,
-        required:true
+        required:false
     },
     userImage:{
         type:String
       },
     gender:{
         type:String,
-        required:true,
+        required:false,
         lowercase:true,
         trim:true,
         enum: { values: ['hombre','mujer','otro'], message: '{VALUE} is not supported' }
     },
     age:{
         type:Number,
-        required:true,
+        required:false,
         min:0,
         max:200
     },
     height:{
         type:Number,
-        required:true,
+        required:false,
         min:0,
         max:3.0
     },
     weigth:{
         type:Number,
-        required:true,
+        required:false,
         min:0,
         max:500
     },
     bloodType:{
         type:String,
-        required:true,
+        required:false,
         uppercase:true,
         trim:true,
         enum:{values:['A+','O+','B+','AB+','A-','O-','B-','AB-'], message: '{VALUE} is not supported'}
     },
     maritalStatus:{
         type:String,
-        required:true,
+        required:false,
         lowercase:true,
         trim:true,
     },
     address:{
         state:{
             type:String,
-            required:true,
+            required:false,
             lowercase:true,
             trim:true,
         },
         city:{
             type:String,
-            required:true,
+            required:false,
             lowercase:true,
             trim:true,
         },
         neighborhood:{
             type:String,
-            required:true,
+            required:false,
             lowercase:true,
             trim:true,
         },
         street:{
             type:String,
-            required:true,
+            required:false,
             lowercase:true,
             trim:true,
         },
         streetNumber:{
-            type:Number,
-            required:true,
+            type:String,
+            required:false,
         },
         innerNumber:{
-            type:Number,
+            type:String,
         }
     },
     familyPractitioner:{
@@ -127,25 +127,25 @@ const patientsSchema = new mongoose.Schema({
     personInCharge:{
         name:{
             type:String,
-            required:true,
+            required:false,
             lowercase:true,
             trim:true,
         },
         lastName:{
             type:String,
-            required:true,
+            required:false,
             lowercase:true,
             trim:true,
         },
         email:{
             type:String,
-            required:true,
+            required:false,
             lowercase:true,
             trim:true,
         },
         phoneNumber:{
             type:String,
-            required:true,
+            required:false,
             lowercase:true,
             trim:true,
         }  
@@ -276,29 +276,23 @@ const patientsSchema = new mongoose.Schema({
                 default:[]
         },
         previousOperations:{
-            response:{
                 type:String,
-                required:true,
+                required:false,
                 lowercase:true,
                 trim:true,
                 enum: { values: ['si','no'], message: '{VALUE} is not supported' }
-            },
-            description:{
-                type:String,
-                lowercase:true,
-                trim:true,
-            }
+            
         },
         bloodDonation:{
                 type:String,
-                required:true,
+                required:false,
                 lowercase:true,
                 trim:true,
                 enum: { values: ['si','no'], message: '{VALUE} is not supported' }
         },
         birthControlPills:{
                 type:String,
-                required:true,
+                required:false,
                 lowercase:true,
                 trim:true,
                 enum: { values: ['si','no'], message: '{VALUE} is not supported' }
@@ -313,15 +307,14 @@ const patientsSchema = new mongoose.Schema({
     nonPathologicalBackground:{
         feeding:{
             type:String,
-            required:true,
+            required:false,
             lowercase:true,
             trim:true,
             enum: { values: ['buena','mala','regular'], message: '{VALUE} is not supported' }
         },
         toothBrushingFrequency:{
-            type:Number,
-            min:0,
-            required:true,
+            type:String,
+            required:false,
         },
         vaccines:{
             type:[{
@@ -341,24 +334,22 @@ const patientsSchema = new mongoose.Schema({
         },
         alcoholConsumption:{
                 type:String,
-                lowercase:true,
                 trim:true,
-                required:true,
-                enum: { values: ['nunca he tomado','no tomo','una vez al día','una vez a la semana','una vez cada quince dias','una vez al mes'], message: '{VALUE} is not supported' }
+                required:false,
+               
             },
         
         cigarConsumption:{
                 type:String,
-                lowercase:true,
                 trim:true,
-                required:true,
-                enum: { values: ['nunca he fumado','no fumo','10 cajetillas ó menos al mes','11 a 20 cajetillas ó menos al mes','21 a 30 cajetillas ó menos al mes','31 ó mas cajetillas mes'], message: '{VALUE} is not supported' }
+                required:false,
+               
         },
         recentTattos:{
             type:String,
             lowercase:true,
             trim:true,
-            required:true,
+            required:false,
             enum: { values: ['si','no'], message: '{VALUE} is not supported' }
         },
         hygieneDescription:{
