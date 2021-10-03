@@ -1,8 +1,10 @@
+
 const mongoose = require('mongoose')
 //quiero hacer cambios aqui
 const appointmentsSchema = new mongoose.Schema({
     idPatient:{
-        type:mongoose.Types.ObjectId,
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'patients',
         required:true
     },
     idDentist:{
