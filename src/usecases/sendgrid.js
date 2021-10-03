@@ -43,7 +43,7 @@ function ChangePasswordEmail(email, id, name){
             subject: "Plover Recovery password",
             text: `Hola ${name}, has solicitado cambiar la contraseña, accede al siguiente link para hacerlo
             en caso de que no lo hayas solicitado, haz caso omiso de este correo
-            http://localhost:8080/recovery/reset/${email}`
+            http://localhost:3000/changepass/${id}`
         }
         
         const emailSuccess = sgMail.send(msg,(error, result)=>{
