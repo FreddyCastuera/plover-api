@@ -36,7 +36,7 @@ router.patch('/reset/:id/', async (request, response)=>{
    try{ 
     const {id} = request.params
     const {password} = request.body
-    //console.log('id:', id)
+    console.log('id:', id)
     //console.log('token.', token)
     console.log('psw:', password)
     let newData = password

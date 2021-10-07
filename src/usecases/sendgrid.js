@@ -1,11 +1,11 @@
+const dotenv = require('dotenv')
 const sgMail = require('@sendgrid/mail');
 const Dentist = require('../models/dentists');
 const Patients = require('../models/patients');
 const jwt = require ('../lib/jwt');
-
-const EMAIL_API_ID = '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'
 const ploverEmail = 'plover.software@gmail.com'
-
+dotenv.config()
+const EMAIL_API_ID = process.env.EMAIL_API_ID
 sgMail.setApiKey(EMAIL_API_ID)
 
 
