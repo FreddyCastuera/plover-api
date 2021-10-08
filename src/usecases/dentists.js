@@ -88,7 +88,17 @@ async function updateDentist(id, newDentistData){
     }
     catch(error){console.log(error.message)}
 }
-
+async function changePassword(id, comparePassword, newPassword){
+    try{
+        let idExist = Dentists.findByid(id)
+        if(!idExist) throw new Error("Dentist doesn't exist")
+        const comparedPassword = await Bcrypt.compare(password, comparePassword)
+        if(!comparedPassword) throw new Error("Password doesn't match")
+        const newPasswordEncrypted = await Bcrypt.hash(newPassword)
+        return Dentists.findByIdAndUpdate(id, {password: newPasswordEncrypted}, {new: true})
+    }
+    catch(error){console.log(error.message)}
+}
 // .: delete dentist
 async function deleteDentist(id) {
     try {
@@ -111,4 +121,5 @@ module.exports = {
     getAppointmentByDentistId:getAppointmentByDentistId,
     getPaymentsByDentistsId:getPaymentsByDentistsId,
     getPatientsByDentistsId:getPatientsByDentistsId,
+    changePassword: changePassword,
 }

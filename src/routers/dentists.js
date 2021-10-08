@@ -263,6 +263,34 @@ router.patch('/:id', async (request, response) => {
     }
 })
 
+router.patch('/changepassword/:id', async (request, response)=> {
+    try{
+        const {id, password, NewPassword} = request.body
+        const changePassword = await Dentists.changePassword(id, password, newPassword)
+        if(changePassword){
+            response.status(200)
+            response.json({
+                success: true,
+                message: "Dentist updated",
+                data: {
+                    dentist: {
+                        dentistUpdated
+                    }
+                }
+            })
+        } else {
+                cpnsole.log('comething went wrong')
+            }
+        }
+    catch (error) {
+        response.status(400)
+        response.json({
+            success: false,
+            error: error.message,
+            message: 'Something went wrong at changing password, try again'
+        })
+    }
+})
 
 // .: Delete Dentist
 router.delete('/:id', async (request, response) => {
