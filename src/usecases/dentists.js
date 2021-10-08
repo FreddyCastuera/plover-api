@@ -90,14 +90,18 @@ async function updateDentist(id, newDentistData){
 }
 async function changePassword(id, comparePassword, newPassword){
     try{
-        let idExist = Dentists.findByid(id)
+        console.log(comparePassword)
+        let idExist = await Dentists.findOne({_id:id})
+        const {password} = idExist
         if(!idExist) throw new Error("Dentist doesn't exist")
-        const comparedPassword = await Bcrypt.compare(password, comparePassword)
+        const comparedPassword = await Bcrypt.compare(comparePassword, password)
         if(!comparedPassword) throw new Error("Password doesn't match")
         const newPasswordEncrypted = await Bcrypt.hash(newPassword)
-        return Dentists.findByIdAndUpdate(id, {password: newPasswordEncrypted}, {new: true})
+        return await Dentists.findByIdAndUpdate(id, {password: newPasswordEncrypted}, {new: true})
     }
-    catch(error){console.log(error.message)}
+    catch(error){
+        console.log(error.message)
+    }
 }
 // .: delete dentist
 async function deleteDentist(id) {
