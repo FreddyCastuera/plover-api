@@ -25,7 +25,7 @@ async function resetPassword(newPassword, id) {
         console.log(encryptedNewData)
         
         const findDentist = Dentists.findById(id)
-        const findPatient = Patients.findById(id);
+        const findPatient = Patients.findById(id)
 
         if(findDentist) {
             return findDentist.findOneAndUpdate(id, {password: encryptedNewData}, {new: true})

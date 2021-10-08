@@ -9,7 +9,7 @@ const Dentists = require('../usecases/dentists');
 // .: GET all dentist
 router.get('/', async (request, response) => {
     try {
-        const allDentist = await Dentists.getAllDentist();
+        const allDentist = await Dentists.getAllDentist()
         response.status(200)
         response.json({
             success: true,
@@ -263,6 +263,43 @@ router.patch('/:id', async (request, response) => {
     }
 })
 
+router.patch('/changepassword/:id', async (request, response)=> {
+    try{
+        const {id, password, newPassword} = request.body
+        console.log(id, password)
+        const changePassword = await Dentists.changePassword(id, password, newPassword)
+        if(changePassword){
+            response.status(201)
+            response.json({
+                success: true,
+                message: "Password updated",
+                data: {
+                    dentist: {
+                        changePassword
+                    }
+                }
+            })
+        } else {
+            response.json({
+                success: false,
+                message: "Password doen't match",
+                data: {
+                    dentist: {
+                        changePassword
+                    }
+                }
+            })
+            }
+        }
+    catch (error) {
+        response.status(400)
+        response.json({
+            success: false,
+            error: error.message,
+            message: 'Something went wrong at changing password, try again'
+        })
+    }
+})
 
 // .: Delete Dentist
 router.delete('/:id', async (request, response) => {

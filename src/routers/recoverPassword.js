@@ -15,7 +15,7 @@ router.post('/',async (request, response)=> {
     const sendRecoveryEmail =  await Recovery.recoverPassword(recoveryData)
     response.status(200)
     response.json({
-        success: true,
+        success: true,  
         message: 'email sent correctly',
         data: {
             sendRecoveryEmail,
@@ -36,7 +36,7 @@ router.patch('/reset/:id/', async (request, response)=>{
    try{ 
     const {id} = request.params
     const {password} = request.body
-    //console.log('id:', id)
+    console.log('id:', id)
     //console.log('token.', token)
     console.log('psw:', password)
     let newData = password
