@@ -13,7 +13,8 @@ async function recoverPassword(recoveryData) {
         if(!findUser) throw new Error('El correo no existe')
         const {name, id} = findUser
         console.log(name, id)
-        return resetPass = Sendgrid.ChangePasswordEmail(email,id, name)
+        resetPass = await Sendgrid.ChangePasswordEmail(email,id, name)
+        return resetPass
     }
     catch(error){console.log(error.message)}
 }

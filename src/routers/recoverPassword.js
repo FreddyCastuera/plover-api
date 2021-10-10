@@ -13,7 +13,8 @@ router.post('/',async (request, response)=> {
     try{
     const recoveryData = request.body;
     const sendRecoveryEmail =  await Recovery.recoverPassword(recoveryData)
-    response.status(200)
+    if(sendRecoveryEmail) {
+    response.status(400)
     response.json({
         success: true,  
         message: 'email sent correctly',
@@ -21,6 +22,12 @@ router.post('/',async (request, response)=> {
             sendRecoveryEmail,
         }
     })
+} else {
+    response.json({
+        success: false,
+        message: "Email does'nt exist"
+    })
+}
     }
     catch(error){
         response.status(400)

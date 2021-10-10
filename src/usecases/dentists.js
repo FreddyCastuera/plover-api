@@ -43,11 +43,12 @@ async function getPatientsByDentistsId(id){
 // .: create new dentist
 async function createDentist(newDentist){
     try{
-        const {email, password, name} = newDentist
+        const {email, password, name, profesionalLicense} = newDentist
         let emailExist = await Dentists.findOne({email: email})
-    
-        if(emailExist) throw new Error(' yawcAW email already in use, recover password or use another email');
-        
+        let licenseExist = await Dentists.findOne({profesionalLicense: profesionalLicense})
+        if(emailExist) throw new Error('email already in use, recover password or use another email');
+        if(licenseExist) throw new Error('Someone is alreadu using this professional licese, contact plover for more information');
+
         let encryptedPassword= await Bcrypt.hash(password);
         let encryptedEmail = await Bcrypt.hash(email);
 
