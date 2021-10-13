@@ -12,7 +12,7 @@ const paymentsSchema = new mongoose.Schema({
         default:Date.now
     },
     receipt: {
-        type: Buffer,
+        type: String,
     },
     idPatient:{
         required:true,
