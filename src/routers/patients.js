@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Patients = require('../usecases/patients')
+const Bcrypt = require('../lib/bcrypt')
 
 //rutas de Patient
 //terminamos las rutas de paciente
@@ -223,5 +224,43 @@ router.delete('/:id',async (request,response)=>{
     }
 })
 
+
+router.patch('/changepassword/:id', async (request, response)=> {
+    try{
+        const {id, password, newPassword} = request.body
+        console.log(id, password)
+        const changePassword = await Patients.changePasswordPatient(id, password, newPassword)
+        if(changePassword){
+            response.status(201)
+            response.json({
+                success: true,
+                message: "Password updated",
+                data: {
+                    dentist: {
+                        changePassword
+                    }
+                }
+            })
+        } else {
+            response.json({
+                success: false,
+                message: "Password doen't match",
+                data: {
+                    dentist: {
+                        changePassword
+                    }
+                }
+            })
+            }
+        }
+    catch (error) {
+        response.status(400)
+        response.json({
+            success: false,
+            error: error.message,
+            message: 'Something went wrong at changing password, try again'
+        })
+    }
+})
 
 module.exports = router

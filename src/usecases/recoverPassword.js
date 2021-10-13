@@ -14,7 +14,7 @@ async function recoverPassword(recoveryData) {
         const {name, id} = findUser
         console.log(name, id)
         resetPass = await Sendgrid.ChangePasswordEmail(email,id, name)
-        return resetPass
+        return true
     }
     catch(error){console.log(error.message)}
 }
