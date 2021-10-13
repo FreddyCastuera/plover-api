@@ -26,7 +26,7 @@ async function getDentistByEmail(email){
 }
 
 async function getAppointmentByDentistId(id){
-    const appointmentsDentist = await Appointments.find({idDentist:id});
+    const appointmentsDentist = await Appointments.find({idDentist:id}).populate({path:'idPatient',select:'name lastName'})
     return appointmentsDentist;
 }
 

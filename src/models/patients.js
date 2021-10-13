@@ -36,7 +36,7 @@ const patientsSchema = new mongoose.Schema({
         required:false,
         lowercase:true,
         trim:true,
-        enum: { values: ['hombre','mujer','otro'], message: '{VALUE} is not supported' }
+        enum: { values: ['masculino','femenino','otro'], message: '{VALUE} is not supported' }
     },
     age:{
         type:Number,
@@ -48,9 +48,9 @@ const patientsSchema = new mongoose.Schema({
         type:Number,
         required:false,
         min:0,
-        max:3.0
+        max:300
     },
-    weigth:{
+    weight:{
         type:Number,
         required:false,
         min:0,
@@ -196,7 +196,7 @@ const patientsSchema = new mongoose.Schema({
                 trim:true,
             }
         },
-        grandFather:{
+        grandMother:{
             pathologies:{
                 type:[{
                     type:String,
