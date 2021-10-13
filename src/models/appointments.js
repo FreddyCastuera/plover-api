@@ -1,16 +1,47 @@
+
 const mongoose = require('mongoose')
 //quiero hacer cambios aqui
 const appointmentsSchema = new mongoose.Schema({
-    procedures: [{name:String,price:Number,status:Boolean}],
+    idPatient:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'patients',
+        required:true
+    },
+    idDentist:{
+        type:mongoose.Types.ObjectId,
+        required:true
+    },
+    procedures: [
+        {name:{
+            type:String,
+            required:true,
+            lowercase:true,
+            trim:true,
+
+        },
+        price:{
+            type:Number,
+            required:true
+        },
+        status:{
+            type:Boolean,
+            required:true
+        }
+    }
+    ],
     annotations: {
-        type: String
+        type: String,
+        lowercase:true,
+        trim:true
     },
     recommendations: {
         type: String,
+        lowercase:true,
+        trim:true
     },
     date: {
         type: Date,
-        default:new Date()
+        default:Date.now
     }
 },{ timestamps: true })
 

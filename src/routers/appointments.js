@@ -5,21 +5,31 @@ const Appointments = require('../usecases/appointments')
 //rutas de appointments
 router.get('/', async (request,response)=>{
     try{
-        const appointments = await Appointments.getAppointments()
-        response.json({
-            success:true,
-            message:"All Appointments fetched",
-            data:{
-                appointments
-            }
-        })
+        let appointments = await Appointments.getAppointments()
+        if(appointments.length){
+            response.status(200)
+            response.json({
+                success:true,
+                message:"All Appointments fetched",
+                data:{
+                    appointments
+                }
+            })
+        }
+        else{
+            response.status(200)
+            response.json({
+                success:true,
+                message:"There are no appointments in the database"
+            })
+        }
     }
     catch(error){
         response.status(400)
         response.json({
             success: false,
             message: 'Error fetching the appointments',
-            error: "Error fetching the appointments"
+            error: error.message
         })
 
     }
@@ -28,9 +38,47 @@ router.get('/:id',async (request,response)=>{
     try{
         const {id} = request.params;
         const appointment = await Appointments.getAppointmentById(id);
+        if(appointment){
+            response.status(200)
+            response.json({
+                success:true,
+                message:"Appointment fetched successfully",
+                data:{
+                    appointment
+                }
+            })
+        }
+        else{
+            response.status(200)
+            response.json({
+                success:true,
+                message:"We can not find a appointment with that id",
+            })
+        }
+    }
+    catch(error){
+        response.status(400)
+        response.json({
+            success: false,
+            message: 'Error fetching the appointment',
+            error: error.message
+        })
+
+    }
+
+})
+
+router.post('/', async (request,response)=>{
+    try{
+        const {body:appointmentData} = request;
+        console.log("esto es desde las rutas")
+        console.log(appointmentData)
+        const appointment = await Appointments.createAppointment(appointmentData)
+        //codigo de respuesta cuando se crea exitosamente un recurso
+        response.status(201)
         response.json({
             success:true,
-            message:"Appointment fetched successfully",
+            message:"Appointment created succesfully",
             data:{
                 appointment
             }
@@ -40,31 +88,8 @@ router.get('/:id',async (request,response)=>{
         response.status(400)
         response.json({
             success: false,
-            message: 'Error fetching the appointment',
-            error: "Error fetching the appointment"
-        })
-
-    }
-
-})
-router.post('/', async (request,response)=>{
-    try{
-        const appointmentData = request.body;
-        const newAppointment = await Appointments.createAppointment(appointmentData)
-        response.json({
-            success:true,
-            message:"Appointment created succesfully",
-            data:{
-                newAppointment
-            }
-        })
-    }
-    catch(error){
-        response.status(400)
-        response.json({
-            success: false,
             message: 'Error creating appointment',
-            error: "Error creating appointment"
+            error: error.message
         })
 
     }
@@ -73,22 +98,33 @@ router.post('/', async (request,response)=>{
 router.patch('/:id',async (request,response)=>{
     try{
         const {id} = request.params
-        const appointmentData = request.body
-        const updatedAppointment = await Appointments.updateAppointmentById(id,appointmentData)
-        response.json({
-            success:true,
-            message:"Appointment updated succesfully",
-            data:{
-                updatedAppointment
-            }
-        })
+        const {body:appointmentData} = request
+        const appointment = await Appointments.updateAppointmentById(id,appointmentData)
+        if(appointment){
+            response.status(201)
+            response.json({
+                success:true,
+                message:"Appointment updated succesfully",
+                data:{
+                    appointment
+                }
+            })
+        }
+        else{
+            //sin contenido, la solicitud no pudo encontrar el recurso, por lo tanto no devuelve nada la peticion
+            response.status(200)
+            response.json({
+                success:true,
+                message:"The appointment you are trying to update does not exist",
+            })
+        }
     }
     catch(error){
         response.status(400)
         response.json({
             success: false,
             message: 'Error updating appointment',
-            error: "Error updating appointment"
+            error: error.message
         })
     
     }
@@ -97,21 +133,32 @@ router.patch('/:id',async (request,response)=>{
 router.delete('/:id',async (request,response)=>{
     try{
         const {id} = request.params
-        const deletedAppointment = await Appointments.deleteAppointment(id)
-        response.json({
-            success:true,
-            message:"Appointment deleted succesfully",
-            data:{
-                deletedAppointment
-            }
-        })
+        const appointment = await Appointments.deleteAppointmentById(id)
+        if(appointment){
+            response.status(200)
+            response.json({
+                success:true,
+                message:"Appointment deleted succesfully",
+                data:{
+                    appointment
+                }
+            })
+        }
+        else{
+            response.status(200)
+            response.json({
+                success:true,
+                message:"The appointment you are trying to delete does not exist",
+            })
+
+        }
     }
     catch(error){
         response.status(400)
         response.json({
             success: false,
             message: 'Error deleting appointment',
-            error: "Error deleting appointment"
+            error: error.message
         })
     }
 })
