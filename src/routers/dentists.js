@@ -165,6 +165,7 @@ router.get('/:id/payments',async (request, response)=>{
 router.post('/register', async (request, response) => {
     try {
         const newDentist = request.body
+        console.log(newDentist)
         const dentistCreated = await Dentists.createDentist(newDentist)
         if (dentistCreated) {
             response.status(201)

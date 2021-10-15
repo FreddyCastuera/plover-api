@@ -4,6 +4,7 @@ const Payments = require('../models/payments')
 const Patients = require('../models/patients')
 const Bcrypt = require('../lib/bcrypt')
 const Sendgrid = require('./sendgrid')
+const Scrapper = require('../lib/scrapper')
 
 // .: search all the Dentist in the DB
 async function getAllDentist(){
@@ -43,24 +44,31 @@ async function getPatientsByDentistsId(id){
 // .: create new dentist
 async function createDentist(newDentist){
     try{
-        const {email, password, name, profesionalLicense} = newDentist
+        const {email, password, name, lastName, profesionalLicense} = newDentist
         let emailExist = await Dentists.findOne({email: email})
         let licenseExist = await Dentists.findOne({profesionalLicense: profesionalLicense})
         if(emailExist) throw new Error('email already in use, recover password or use another email');
-        if(licenseExist) throw new Error('Someone is alreadu using this professional licese, contact plover for more information');
-
+        if(licenseExist) throw new Error('Someone is already using this professional licese, contact plover for more information');
+        console.log(password)
         let encryptedPassword= await Bcrypt.hash(password);
         let encryptedEmail = await Bcrypt.hash(email);
 
         console.log(encryptedEmail)
         
+        const proExist = await Scrapper.searchProLicense(name, lastName, profesionalLicense)
+        
+        if(proExist){
         const dentistCreated = await Dentists.create({...newDentist, password: encryptedPassword, emailToken: encryptedEmail});
         const { _id, emailToken } = dentistCreated
         
         console.log(dentistCreated)
 
-        const emailVerification = await Sendgrid.SendEmail(email, name, emailToken, _id);
-        return dentistCreated 
+        await Sendgrid.SendEmail(email, name, emailToken, _id);
+        return dentistCreated
+        } else {
+            await Sengrid.FailureSendEMail(email, name)
+            return true
+        }
         
     } catch(error){console.log(error.message)}
 }

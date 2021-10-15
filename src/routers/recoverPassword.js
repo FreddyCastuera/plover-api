@@ -14,7 +14,7 @@ router.post('/',async (request, response)=> {
     const recoveryData = request.body;
     const sendRecoveryEmail =  await Recovery.recoverPassword(recoveryData)
     if(sendRecoveryEmail) {
-    response.status(400)
+    response.status(200)
     response.json({
         success: true,  
         message: 'email sent correctly',
