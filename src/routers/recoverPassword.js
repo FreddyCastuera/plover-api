@@ -13,14 +13,21 @@ router.post('/',async (request, response)=> {
     try{
     const recoveryData = request.body;
     const sendRecoveryEmail =  await Recovery.recoverPassword(recoveryData)
+    if(sendRecoveryEmail) {
     response.status(200)
     response.json({
-        success: true,
+        success: true,  
         message: 'email sent correctly',
         data: {
             sendRecoveryEmail,
         }
     })
+} else {
+    response.json({
+        success: false,
+        message: "Email does'nt exist"
+    })
+}
     }
     catch(error){
         response.status(400)
@@ -36,7 +43,7 @@ router.patch('/reset/:id/', async (request, response)=>{
    try{ 
     const {id} = request.params
     const {password} = request.body
-    //console.log('id:', id)
+    console.log('id:', id)
     //console.log('token.', token)
     console.log('psw:', password)
     let newData = password

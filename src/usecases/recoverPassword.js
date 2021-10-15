@@ -13,7 +13,8 @@ async function recoverPassword(recoveryData) {
         if(!findUser) throw new Error('El correo no existe')
         const {name, id} = findUser
         console.log(name, id)
-        return resetPass = Sendgrid.ChangePasswordEmail(email,id, name)
+        resetPass = await Sendgrid.ChangePasswordEmail(email,id, name)
+        return true
     }
     catch(error){console.log(error.message)}
 }
@@ -25,7 +26,7 @@ async function resetPassword(newPassword, id) {
         console.log(encryptedNewData)
         
         const findDentist = Dentists.findById(id)
-        const findPatient = Patients.findById(id);
+        const findPatient = Patients.findById(id)
 
         if(findDentist) {
             return findDentist.findOneAndUpdate(id, {password: encryptedNewData}, {new: true})

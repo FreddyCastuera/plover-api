@@ -53,7 +53,7 @@ const dentistSchema = new mongoose.Schema({
         trim: true
     },
     clinicNumber: {
-        type: Number,
+        type: String,
         minLength: 10,
         required: true,
     },
