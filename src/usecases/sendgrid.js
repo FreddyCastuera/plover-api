@@ -16,7 +16,7 @@ async function SendEmail(email, name, emailToken, id){
             from: ploverEmail,
             subject: "Plover Account Registration",
             text: `Hola ${name}, para confirmar tu cuenta ingresa al siguiente link para empezar a usar tu cuenta
-            http://localhost:8080/dentists/verify/${id}/${emailToken}`
+            https://plover-client.vercel.app//dentists/verify/${id}/${emailToken}`
         }
         
         const emailSuccess = await sgMail.send(msg,(error, result)=>{
@@ -44,7 +44,7 @@ async function ChangePasswordEmail(email, id, name){
             subject: "Plover Recovery password",
             text: `Hola ${name}, has solicitado cambiar la contraseña, accede al siguiente link para hacerlo
             en caso de que no lo hayas solicitado, haz caso omiso de este correo
-            http://localhost:3000/changepass/${id}`
+            https://plover-client.vercel.app//changepass/${id}`
         }
         
         const emailSuccess = await sgMail.send(msg,(error, result)=>{

@@ -1,5 +1,5 @@
 applications:
-- name: plover-api
+- name: plover-api-test
   memory: 128M 
   stack: cflinuxfs3
   buildpack: nodejs_buildpack
