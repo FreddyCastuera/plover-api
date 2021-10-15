@@ -9,7 +9,7 @@ const EMAIL_API_ID = process.env.EMAIL_API_ID
 sgMail.setApiKey(EMAIL_API_ID)
 
 
-function SendEmail(email, name, emailToken, id){
+async function SendEmail(email, name, emailToken, id){
     try {
         const msg = {
             to: email,
@@ -19,7 +19,7 @@ function SendEmail(email, name, emailToken, id){
             http://localhost:8080/dentists/verify/${id}/${emailToken}`
         }
         
-        const emailSuccess = sgMail.send(msg,(error, result)=>{
+        const emailSuccess = await sgMail.send(msg,(error, result)=>{
             if(error){
                 console.log('Email not Sent');
             } else {
@@ -33,10 +33,11 @@ function SendEmail(email, name, emailToken, id){
     }
 }
 
-function ChangePasswordEmail(email, id, name){
+async function ChangePasswordEmail(email, id, name){
     try {
         //let token = jwt.sign({email: email, id: id}, 'secret', {expiresIn: '2h'});
         //console.log(token)
+        console.log(email)
         const msg = {
             to: email,
             from: ploverEmail,
@@ -46,7 +47,33 @@ function ChangePasswordEmail(email, id, name){
             http://localhost:3000/changepass/${id}`
         }
         
-        const emailSuccess = sgMail.send(msg,(error, result)=>{
+        const emailSuccess = await sgMail.send(msg,(error, result)=>{
+            if(error){
+                console.log('Email not Sent');
+            } else {
+                console.log('Email Sent Success');
+            }
+        });
+        return emailSuccess
+    }
+    catch(error){
+        console.log(error.message)
+    }
+}
+
+async function FailureSendEmail(email, name){
+    try {
+        const msg = {
+            to: email,
+            from: ploverEmail,
+            subject: "Plover Account Registration",
+            text: `Hola ${name}, Tu cedula profesional no aparece en la página de la SEP,
+            si tu cedula si está, por favor contacta con nosotros
+            en el siguiente link puedes buscar tu cédula
+            https://cedulaprofesional.sep.gob.mx/cedula/presidencia/indexAvanzada.action#`
+        }
+        
+        const emailSuccess = await sgMail.send(msg,(error, result)=>{
             if(error){
                 console.log('Email not Sent');
             } else {
@@ -63,4 +90,5 @@ function ChangePasswordEmail(email, id, name){
 module.exports = {
         SendEmail: SendEmail,
         ChangePasswordEmail: ChangePasswordEmail,
+        FailureSendEmail: FailureSendEmail
 }
